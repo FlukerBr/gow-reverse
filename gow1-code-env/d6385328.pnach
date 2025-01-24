@@ -1,0 +1,102 @@
+gametitle=God of War (U) [SCUS_973.99] [D6385328]
+
+//comment=Infinite Health - Don't use on final boss
+//patch=1,EE,20795978,extended,42C80000
+
+comment=Final Boss-L1+Left to refill health+Quick Last Boss Death
+patch=1,EE,E002FB7F,extended,002FDA9C
+patch=1,EE,E001453B,extended,0079597E
+patch=1,EE,20795978,extended,453B7FFF
+
+comment=Infinite Magic
+patch=1,EE,20302D1C,extended,42C80000
+
+comment=Infinite Rage of the Gods
+patch=1,EE,20302D20,extended,42C80000
+
+comment=Infinite Double Jumps
+//note: problems begin when you dont activate the games programmed camera angles by jumping past or over them with the code
+//note: try to use it only when you need it,or use it wisely,like jumping to all three platforms on the bog instead of jumps straight across
+//note: if you notice the camera has "lost" you go back and try to get it to "find" you again by jumping to normal gameplay areas.
+patch=1,EE,201E8E2C,extended,00000000
+
+//comment=Have All Magic Abilities
+//patch=1,EE,10302D42,extended,0000FFFF
+
+comment=Max red orbs/power-up meter
+patch=1,EE,20302D28,extended,0000EA60
+
+/////////////////
+
+//item codes
+
+//comment=have all Muse Keys
+//patch=1,EE,00302D41,extended,00000002
+
+comment=have all gorgon eyes
+patch=1,EE,00302D3F,extended,00000018
+
+comment=have all Phoenix Feathers
+patch=1,EE,00302D40,extended,00000018
+
+/////////////////
+
+//magic level codes
+
+//comment=Max Zeus' Fury
+//patch=1,EE,2076D7FC,extended,00000002
+
+//comment=Max Blade of Artemis
+//patch=1,EE,2076D804,extended,00000002
+
+//comment=Max Army of Hades
+//patch=1,EE,2076D800,extended,00000002
+
+//comment=Max Blades of Chaos
+//patch=1,EE,2076D808,extended,00000004
+
+//comment=Max Poseidon's Rage
+//patch=1,EE,2076D7F4,extended,00000002
+
+//comment=Max Medusa's Gaze
+//patch=1,EE,2076D7F8,extended,00000002
+
+/////////////////
+
+//other
+
+//comment=Massive hit counter
+//patch=1,EE,200C2000,extended,340603E7
+//patch=1,EE,200C2004,extended,0806E62E
+//patch=1,EE,200C2008,extended,AE060048
+//patch=1,EE,201B98B4,extended,08030800
+
+//comment=Max Combo Hits
+//patch=1,EE,2076D650,extended,0000270F
+
+//comment=P1 Press L1+Up To Kill Enemies 
+//untested
+//patch=1,EE,200C0234,extended,03E00008
+//patch=1,EE,200C0238,extended,86020060
+//patch=1,EE,201B4D84,extended,0C03008C
+//patch=1,EE,201B4D88,extended,8E700000
+//patch=1,EE,D02FDA9C,extended,0000FBEF
+//patch=1,EE,200C0230,extended,AE600178
+//patch=1,EE,D02FDA9C,extended,0010FBEF
+//patch=1,EE,200C0230,extended,00000000
+
+//comment=P1 Press L1+Down To Refill Health For Your Family
+//patch=1,EE,200C0220,extended,8E61017C
+//patch=1,EE,200C0224,extended,AE610178
+//patch=1,EE,200C0228,extended,03E00008
+//patch=1,EE,200C022C,extended,8E700000
+//patch=1,EE,D02FDA9C,extended,0000FBBF
+//patch=1,EE,201B4E5C,extended,0C030088
+//patch=1,EE,D02FDA9C,extended,0010FBBF
+//patch=1,EE,201B4E5C,extended,8E700000
+
+//comment=Unlock All Treasures
+//patch=1,EE,202A12C8,extended,FFFFFFFF
+
+/////////////////
+

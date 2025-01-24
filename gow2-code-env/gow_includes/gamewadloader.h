@@ -1,0 +1,101 @@
+#ifndef GAMEWADLOADER_H
+#define GAMEWADLOADER_H
+
+#include "structs.h"
+
+
+uint GameWadLoader_PermWadContext(void);
+uint GameWadLoader_UnloadWadContext(wadContext *);
+uint GameWadLoader_DeactivateWadContext(wadContext *);
+uint GameWadLoader_ActivateWadContext(wadContext *);
+uint GameWadLoader_SetExternalFileSets(int,wadContext *,wadContext *,uint,char const *);
+uint GameWadLoader_SetExternalPersistentFileSets(int);
+uint GameWadLoader_SetExternalLevelFileSets(int,int);
+uint GameWadLoader_SetParentLinks(int);
+uint GameWadLoader_LoadUpgradeLevel(char const *,int,int);
+uint GameWadLoader_FinishLoadHero(int);
+uint GameWadLoader_SwitchHero(int);
+uint GameWadLoader_LoadHeroWad(int);
+uint GameWadLoader_ResetWad(int);
+uint GameWadLoader_EndWad(int);
+uint GameWadLoader_BeginWad(int);
+uint GameWadLoader_OverrideSizes(char const *);
+uint GameWadLoader_CreateHeap(char const *,char const *);
+uint GameWadLoader_Run(void);
+uint GameWadLoader_UpdateWadLoad(void);
+uint GameWadLoader_CancelLevelWad(int);
+uint GameWadLoader_SetResourceWads(int,int);
+uint GameWadLoader_EndPersistentWad(void);
+uint GameWadLoader_BeginPersistentWad(void);
+uint GameWadLoader_GetPersistentWad(char *);
+uint GameWadLoader_ResetPersistentWad(void);
+uint GameWadLoader_LoadPersistentWad(char const *,int);
+uint GameWadLoader_CancelLoadCheck(char const *);
+uint GameWadLoader_LoadCheck(char const *);
+uint GameWadLoader_LoadSaveGame(char const *);
+uint GameWadLoader_ResetLevelWad(int);
+uint GameWadLoader_UnloadLevelWad(int,uint);
+uint GameWadLoader_LoadFreshWads(char const *,char const *,uint);
+uint GameWadLoader_LoadFirstLevel(char const *);
+uint GameWadLoader_RemoveHUDFlash(void);
+uint GameWadLoader_AddHUDFlash(void);
+uint GameWadLoader_RemoveShellFlash(void);
+uint GameWadLoader_AddShellFlash(void);
+uint GameWadLoader_UnloadShellWad(void);
+uint GameWadLoader_RestartShellFlash(void);
+uint GameWadLoader_LoadSaveGameImgWad(void);
+uint GameWadLoader_LoadShellWad(void);
+uint GameWadLoader_UnloadUpgradeWads(void);
+uint GameWadLoader_UnloadRsrcWads(void);
+uint GameWadLoader_WarpLevelWads(int);
+uint GameWadLoader_ActivateLevelWad(int);
+uint GameWadLoader_AddLevelWad(char const *,char const *,uint);
+uint GameWadLoader_RemoveCanceledLevelWad(void);
+uint GameWadLoader_RemoveRsrcWadCommands(void);
+uint GameWadLoader_RemoveLevelWadCommands(char const *,char const *);
+uint GameWadLoader_RemoveQueuedCommands(int,int,int);
+uint GameWadLoader_GetQueuedLoad(int,char *,uchar *);
+uint GameWadLoader_GetWadState(char *[19],uchar *);
+uint GameWadLoader_GetLevelWadSlot(char const *);
+uint GameWadLoader_AddCommand(int,int,uint,char const *);
+uint GameWadLoader_IFFResourceNames(IFF_Header *,char const *);
+uint GameWadLoader_GetRsrcWadSlot(int,int);
+uint GameWadLoader_PreCreatePermGOPools(char const *);
+uint GameWadLoader_PreCreateGOPools(dc_tWadInfo const *);
+uint GameWadLoader_PreCreateMemoryPools(wadContext *,dc_tWadInfo const *);
+uint GameWadLoader_LoadPermLocalWad(void);
+uint GameWadLoader_InitGame(void);
+uint GameWadLoader_Init(void);
+uint GameWadLoader_state;
+uint GameWadLoader_cmdQueue;
+uint GameWadLoader_pUpgradeHeapZone;
+uint GameWadLoader_currentSlot;
+uint GameWadLoader_pUpgradeWadSlot;
+uint GameWadLoader_pRsrcWadSlot;
+uint GameWadLoader_callback;
+uint GameWadLoader_pPersistentWadSlot;
+uint GameWadLoader_pLevelWadSlot;
+uint GameWadLoader_pHeroWadSlot;
+uint GameWadLoader_iopLevelHeap;
+uint GameWadLoader_iopUpgradeHeap;
+uint GameWadLoader_iopHeroHeap;
+uint GameWadLoader_pHeroHeapZone;
+uint GameWadLoader_pLevelHeapZone;
+uint GameWadLoader_curFlashName;
+uint GameWadLoader_switchingHero;
+uint GameWadLoader_queuedHeroVariant;
+uint GameWadLoader_mcIcon;
+uint GameWadLoader_loadCheckWad;
+uint GameWadLoader_heroWadContext;
+uint GameWadLoader_permWadContext;
+uint GameWadLoader_sgimgWadLoaded;
+uint GameWadLoader_shellWadLoaded;
+uint GameWadLoader_cancelWadLoad;
+uint GameWadLoader_cmdQueueWriteIndex;
+uint GameWadLoader_cmdQueueReadIndex;
+uint GameWadLoader_numCommands;
+uint GameWadLoader_creatingGO;
+uint GameWadLoader_paused;
+
+
+#endif
