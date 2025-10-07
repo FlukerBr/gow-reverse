@@ -1,0 +1,93 @@
+#ifndef GOSOLDIER_H
+#define GOSOLDIER_H
+
+#include "type.h"
+#include "gocreature.h"
+
+typedef struct goSoldier {
+    goCreature gocreature;
+    VUMat4 m_mMovingPlatform;
+    VUVec4 m_vMovingPlatformOffset;
+    VUVec4 m_vGroundNormal;
+    VUVec4 m_vWallNormal;
+    FLOAT m_fWaterLevel;
+    AtrValue *m_pGroundATR;
+    AtrValue *m_pWallATR;
+    AtrValue *m_pWaterATR;
+    wadContext *m_pGroundWC;
+    wadContext *m_pWallWC;
+    wadContext *m_pWaterWC;
+    goGameObject *m_pGroundGO;
+    UINT32 m_uGroundGOJointID;
+    UINT32 m_uNoCollisionType;
+    UINT32 m_uIgnoreSheetBits;
+    undefined field66_0x27c;
+    undefined field67_0x27d;
+    undefined field68_0x27e;
+    undefined field69_0x27f;
+    VUVec4 m_vCurrentSpeed;
+    VUVec4 m_vDamageDir;
+    FLOAT m_fDamagePoints;
+    UINT32 m_uDamageMaterialFX;
+    FLOAT m_fFreezeResistance;
+    FLOAT m_fMaxFreezeResistance;
+    goHandle m_RopeHandle;
+    FLOAT m_fRopeRelativePos;
+    FLOAT m_fRopeForce;
+    INT32 m_iRopeWeightIdx;
+    FLOAT m_fNoCombatTimer;
+    FLOAT m_fNoClimbTimer;
+    FLOAT m_fWallHangTimer;
+    FLOAT m_fNoHangTargetsTimer;
+    FLOAT m_fIgnoreMotionTimer;
+    FLOAT m_fNoDamageTimer;
+    FLOAT m_fLandTimer;
+    FLOAT m_fGeneralTimer;
+    FLOAT m_fTurnDampingAirFactor;
+    FLOAT m_fTurnDampingAirTweenTime;
+    FLOAT m_fLean;
+    FLOAT m_fWorkU;
+    FLOAT m_fDivingDashSpeed;
+    FLOAT m_fNoPhysicsU;
+    FLOAT m_fNoPhysicsV;
+    FLOAT m_fNoPhysicsAddU;
+    FLOAT m_fNoPhysicsAddV;
+    UINT32 m_uSoldierModeFlags;
+    UINT32 m_uSoldierInfoFlags;
+    tSoldierNavCaps m_Caps;
+    tCreatureControls m_pCreatureControls;
+    tSoldier *m_pTweaks;
+    tAnimSystem *m_pAnimSystem;
+    tFlyingSystem *m_pFlyingSystem;
+    tIOSystem *m_pIOSystem;
+    tGrappleSystem *m_pGrappleSystem;
+    SDecalContext *m_pDecalContext;
+    tSys *m_pAttachments;
+    tEffectSystem *m_pEffectSystem;
+    goGameObject *m_pFrozenStatue;
+    short int m_iIKJoint[2];
+    float m_fIKWeight[2];
+    INT16 m_iTargetingJointIdx;
+    INT16 m_iHeadTrackJointIdx;
+    FLOAT m_fHeadTrackAmount;
+    FLOAT m_fHeadTrackTargetAmount;
+    FLOAT m_fQuicksandDepth;
+    FLOAT m_fDriftTimer;
+    FLOAT m_fDriftingLean;
+    UINT8 m_iSaveData;
+    UINT8 m_iTrapBloodCounter;
+    undefined field121_0x39a;
+    undefined field122_0x39b;
+    undefined field123_0x39c;
+    undefined field124_0x39d;
+    undefined field125_0x39e;
+    undefined field126_0x39f;
+    VUMat4 m_mLightFrameMtx;
+    FLOAT m_fLightFrameSpeed;
+    FLOAT m_fLightFrameForceAnimPos;
+    FLOAT m_fLightFrameU;
+    FLOAT m_fLightFrameV;
+} goSoldier;
+
+
+#endif
