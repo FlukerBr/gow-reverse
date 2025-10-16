@@ -13,11 +13,9 @@
         "elf.h": "c",
         "stdio.h": "c",
         "stdint.h": "c",
-        "string.h": "c",
-        "erl.h": "c",
-        "type.h": "c"
+        "string.h": "c"
     },
     "C_Cpp.default.includePath": [
-        "C:\\Users\\allan\\Documents\\ps2-dev\\gow1-plugin-loader"
+        "C:\\Users\\allan\\Documents\\ps2-dev\\gow-elf-relocatable"
     ],
 }

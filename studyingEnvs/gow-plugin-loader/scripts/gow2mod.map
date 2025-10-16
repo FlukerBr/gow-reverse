@@ -731,14 +731,14 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (__builtin_vec_new = 0x147b78)
                 [!provide]                        PROVIDE (__builtin_vec_delete = 0x147bb0)
                 [!provide]                        PROVIDE (Mem_Start = 0x147bd0)
-                [!provide]                        PROVIDE (Mem_NewHeapZone = 0x147c00)
+                0x00147c00                        PROVIDE (Mem_NewHeapZone = 0x147c00)
                 [!provide]                        PROVIDE (Mem_FreeHeapZone = 0x147d90)
                 [!provide]                        PROVIDE (Mem_NewPool = 0x147e00)
                 [!provide]                        PROVIDE (Mem_PoolNewPtr = 0x147f10)
                 [!provide]                        PROVIDE (Mem_PoolFreePtr = 0x148080)
                 [!provide]                        PROVIDE (Mem_FreePool = 0x1480a0)
-                [!provide]                        PROVIDE (Mem_FreePtr = 0x148110)
-                [!provide]                        PROVIDE (Mem_NewPtr = 0x1481f0)
+                0x00148110                        PROVIDE (Mem_FreePtr = 0x148110)
+                0x001481f0                        PROVIDE (Mem_NewPtr = 0x1481f0)
                 [!provide]                        PROVIDE (Mem_NewPtrHigh = 0x1483c8)
                 [!provide]                        PROVIDE (Mem_GetCurrentHeapZone = 0x148648)
                 [!provide]                        PROVIDE (Mem_SetCurrentHeapZone = 0x148678)
@@ -1473,7 +1473,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (sys_Boot2 = 0x1858f0)
                 [!provide]                        PROVIDE (sys_Shutdown = 0x185958)
                 [!provide]                        PROVIDE (sys_GameFrame = 0x185990)
-                [!provide]                        PROVIDE (sys_GameLoop = 0x1859c0)
+                0x001859c0                        PROVIDE (sys_GameLoop = 0x1859c0)
                 [!provide]                        PROVIDE (sysCDDVD_DirInfo_DirInfo = 0x185a08)
                 [!provide]                        PROVIDE (sysCDDVD_DirInfo_Open = 0x185a20)
                 [!provide]                        PROVIDE (sysCDDVD_DirInfo_NextEntry = 0x185ac0)
@@ -5357,7 +5357,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (gcc2_compiled_ = 0x2a0f8c)
                 [!provide]                        PROVIDE (__errno = 0x2a0f90)
                 [!provide]                        PROVIDE (memcmp = 0x2a0fa0)
-                [!provide]                        PROVIDE (memcpy = 0x2a1034)
+                0x002a1034                        PROVIDE (memcpy = 0x2a1034)
                 [!provide]                        PROVIDE (memmove = 0x2a10e0)
                 [!provide]                        PROVIDE (memset = 0x2a11dc)
                 [!provide]                        PROVIDE (strcat = 0x2a1294)
@@ -5517,7 +5517,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (_sceSnprintf_pf = 0x2aac98)
                 [!provide]                        PROVIDE (sceSnprintf = 0x2aace8)
                 [!provide]                        PROVIDE (scePrintf = 0x2aad30)
-                [!provide]                        PROVIDE (kprintf = 0x2aadb0)
+                0x002aadb0                        PROVIDE (kprintf = 0x2aadb0)
                 [!provide]                        PROVIDE (_set_sreg = 0x2aae30)
                 [!provide]                        PROVIDE (_change_addr = 0x2aae50)
                 [!provide]                        PROVIDE (sceSifGetSreg = 0x2aae60)
@@ -5562,9 +5562,9 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (sceFsInit = 0x2ac730)
                 [!provide]                        PROVIDE (_fs_version = 0x2ac938)
                 [!provide]                        PROVIDE (sceFsReset = 0x2ac9c8)
-                [!provide]                        PROVIDE (sceOpen = 0x2aca00)
-                [!provide]                        PROVIDE (sceClose = 0x2acc90)
-                [!provide]                        PROVIDE (sceRead = 0x2ace10)
+                0x002aca00                        PROVIDE (sceOpen = 0x2aca00)
+                0x002acc90                        PROVIDE (sceClose = 0x2acc90)
+                0x002ace10                        PROVIDE (sceRead = 0x2ace10)
                 [!provide]                        PROVIDE (_sceCallCode = 0x2ad080)
                 [!provide]                        PROVIDE (sceDopen = 0x2ad250)
                 [!provide]                        PROVIDE (sceDclose = 0x2ad318)
@@ -10549,26 +10549,36 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (CDecalSystem_s_ModifierSeeds = 0x35bfa0)
                 [!provide]                        PROVIDE (CDecalSystem_s_wModifierFrame = 0x35bfa8)
 
-.text           0x000fd8f0       0x64
+.text           0x000fd8f0      0x68c
                 0x000fd8f0                        _ftext = .
  *(.text)
- .text          0x000fd8f0       0x24 ./main.o
-                0x000fd8f0                injectPatches
-                0x000fd8f8                INVOKER
- .text          0x000fd914       0x38 ./injector.o
-                0x000fd914                RedirectCall
-                0x000fd928                WriteDword
-                0x000fd930                MakeNop
-                0x000fd938                RedirectJump
+ .text          0x000fd8f0      0x64c ./main.o
+                0x000fd8f0                openELF
+                0x000fd914                mem_alloc
+                0x000fd950                loadELF
+                0x000fda14                execEntryCode
+                0x000fda34                applyReloc
+                0x000fdb7c                findSymTab
+                0x000fdbbc                calcAllocSize
+                0x000fdc00                relocELFCode
+                0x000fde58                createPluginHeapZone
+                0x000fde90                main
+                0x000fdef0                injectPatches
+                0x000fdf18                INVOKER
+ .text          0x000fdf3c       0x38 ./injector.o
+                0x000fdf3c                RedirectCall
+                0x000fdf50                WriteDword
+                0x000fdf58                MakeNop
+                0x000fdf60                RedirectJump
  *(.text.*)
  *(.gnu.linkonce.t*)
  *(.rodata)
  *(.data)
- .data          0x000fd94c        0x0 ./main.o
- .data          0x000fd94c        0x0 ./injector.o
+ .data          0x000fdf74        0x0 ./main.o
+ .data          0x000fdf74        0x0 ./injector.o
  *(.init)
  *(.fini)
-                0x000fd94c        0x8 QUAD 0x0
+                0x000fdf74        0x8 QUAD 0x0
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
 
@@ -10577,13 +10587,15 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
  *(.reginfo)
  *(.gnu.attributes)
 
-.rodata
+.rodata         0x000fdf80       0xff
  *(.rodata)
  *(.rodata.*)
+ .rodata.str1.8
+                0x000fdf80       0xff ./main.o
  *(.gnu.linkonce.r*)
 
-.data           0x000fd980        0x0
-                0x000fd980                        _fdata = .
+.data           0x000fe080        0x0
+                0x000fe080                        _fdata = .
  *(.data)
  *(.data.*)
  *(.gnu.linkonce.d*)
@@ -10593,7 +10605,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
 
 .gcc_except_table
  *(.gcc_except_table)
-                0x00105970                        _gp = (ALIGN (0x80) + 0x7ff0)
+                0x00106070                        _gp = (ALIGN (0x80) + 0x7ff0)
 
 .lit4
  *(.lit4)
@@ -10605,34 +10617,35 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
  *(.sdata)
  *(.sdata.*)
  *(.gnu.linkonce.s*)
-                0x000fd980                        _edata = .
+                0x000fe080                        _edata = .
                 [!provide]                        PROVIDE (edata = .)
 
-.sbss           0x000fd980        0x0
-                0x000fd980                        _fbss = .
+.sbss           0x000fe080        0x0
+                0x000fe080                        _fbss = .
  *(.sbss)
  *(.sbss.*)
  *(.gnu.linkonce.sb*)
  *(.scommon)
 
-.bss            0x000fd980        0x0
+.bss            0x000fe080        0x4
  *(.bss)
- .bss           0x000fd980        0x0 ./main.o
- .bss           0x000fd980        0x0 ./injector.o
+ .bss           0x000fe080        0x4 ./main.o
+                0x000fe080                pluginHeap
+ .bss           0x000fe084        0x0 ./injector.o
  *(.bss.*)
  *(.gnu.linkonce.b*)
  *(COMMON)
-                0x000fd980                        _end_bss = .
-                0x000fd980                        _end = .
+                0x000fe084                        _end_bss = .
+                0x000fe084                        _end = .
                 [!provide]                        PROVIDE (end = .)
                 [!provide]                        PROVIDE (_heap_size = 0xffffffffffffffff)
                 [!provide]                        PROVIDE (_stack = 0xffffffffffffffff)
                 [!provide]                        PROVIDE (_stack_size = 0x20000)
 OUTPUT(./gowplugin.elf elf32-nlittlemips)
 
-.pdr            0x00000000       0xc0
- .pdr           0x00000000       0x40 ./main.o
- .pdr           0x00000040       0x80 ./injector.o
+.pdr            0x00000000      0x200
+ .pdr           0x00000000      0x180 ./main.o
+ .pdr           0x00000180       0x80 ./injector.o
 
 .mdebug.abiN32  0x00000000        0x0
  .mdebug.abiN32

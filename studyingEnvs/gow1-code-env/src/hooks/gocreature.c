@@ -1,6 +1,6 @@
 #include "include/gocreature.h"
 #include "goplayer.h"
-#include "../injector.h"
+#include "injector.h"
 #include "gocreature.h"
 
 extern BOOL allow_InfiniteHealth;

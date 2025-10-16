@@ -1,6 +1,6 @@
 @echo off
 
-D:\0temp_torrent\ps2sdk\ee\bin\make.exe
+C:\Users\allan\Desktop\tools\ps2sdk\ee\bin\make.exe
 
 
 if %ERRORLEVEL% neq 0 (

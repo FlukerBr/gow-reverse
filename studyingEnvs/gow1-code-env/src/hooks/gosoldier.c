@@ -1,6 +1,6 @@
 #include "type.h"
 #include "gosoldier.h"
-#include "../injector.h"
+#include "injector.h"
 
 void goSoldier_SetMode_DoubleJumping(void);
 

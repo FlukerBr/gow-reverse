@@ -15,7 +15,7 @@ char* strncpy(char *dest, const char *src, uint32_t n);
 int strcasecmp(const char *str1, const char *str2);
 char* strtok(char *str, const char *delim);
 char* strchr(const char *str, int c);
-uint strtol(const char *nptr, char **endptr, int base);
+
 char * strdup(const char * s);
 
 #endif

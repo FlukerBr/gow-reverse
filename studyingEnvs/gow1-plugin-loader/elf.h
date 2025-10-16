@@ -158,7 +158,7 @@ typedef struct {
 #define ET_LOPROC	0xff00
 #define ET_HIPROC	0xffff
 
-#define REL_TYPE 1
+
 
 #define EM_NONE		 0
 #define EM_M32		 1

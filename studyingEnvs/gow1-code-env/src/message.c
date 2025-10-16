@@ -20,14 +20,20 @@ void displayMessage(char *msgLines[], uint nLines, uint style)
 
     GameState_AddPending(&p);
 
-    char *lines = &flashInterface->MessageTemplate_Line1;
+    char **lines[] = {
+        &flashInterface->MessageTemplate_Line1,
+        &flashInterface->MessageTemplate_Line2,
+        &flashInterface->MessageTemplate_Line3,
+        &flashInterface->MessageTemplate_Line4,
+        &flashInterface->MessageTemplate_Line5,
+    };
 
     nLines = nLines > 5 ? 5 : nLines;
 
     for (uint i = 0; i < 5; i++)
     {
         strcpy(textMsgBuffer[i], msgLines[i]);
-        lines[i] = i < nLines ? textMsgBuffer[i] : NULL;
+        *lines[i] = i < nLines ? textMsgBuffer[i] : NULL;
     }
     
     FlashInterface_TellFlashTypeOn(flashInterface, 1, nLines);

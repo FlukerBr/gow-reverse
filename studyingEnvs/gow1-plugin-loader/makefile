@@ -1,12 +1,11 @@
 EE_BIN = ./gowplugin.elf
 EE_OBJS = ./main.o \
-./injector.o \
-./sifdev.o
+./injector.o
 
 NEWLIB_NANO = 1
 KERNEL_NOPATCH = 1
 
-BASE_ADDRESS = 0xF7B80
+BASE_ADDRESS = 0xFD8F0
 EE_LINKFILE = linkfile
 
 EE_CFLAGS =  -fno-zero-initialized-in-bss
@@ -14,6 +13,6 @@ EE_LDFLAGS = -Wl,--entry=INVOKER -Wl,-Map,./scripts/gow2mod.map -Wl,'--defsym=BA
 
 all: $(EE_BIN)
 
-PS2SDK = D:/0temp_torrent/ps2sdk/ps2sdk
+PS2SDK = C:/Users/allan/Desktop/tools/ps2sdk/ps2sdk
 include $(PS2SDK)/samples/Makefile.pref
 include eemakefile.eeglobal

@@ -1,16 +1,11 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
-
-#include "type.h"
-
 typedef unsigned char   undefined;
+
 typedef unsigned char    byte;
 typedef unsigned int    dword;
 typedef long long    int16;
 typedef long long    longlong;
 typedef unsigned char    uchar;
 typedef unsigned int    uint;
-typedef unsigned int    bool;
 typedef unsigned long long    uint16;
 typedef unsigned long    ulong;
 typedef unsigned char    undefined1;
@@ -20,28 +15,6 @@ typedef unsigned long    undefined6;
 typedef unsigned long    undefined8;
 typedef unsigned short    ushort;
 typedef unsigned short    word;
-
-typedef struct
-{
-    uint L2 : 1;
-    uint R2 : 1;
-    uint L1 : 1;
-    uint R1 : 1;
-    uint triangle : 1;
-    uint circle : 1;
-    uint X : 1;
-    uint square : 1;
-    uint select : 1;
-    uint L3 : 1;
-    uint R3 : 1;
-    uint start : 1;
-    uint UP : 1;
-    uint RIGHT : 1;
-    uint DOWN : 1;
-    uint LEFT : 1;
-    ushort dummy;
-} Gpad;
-
 // typedef union $_123__1_10240 $_123__1_10240, *P$_123__1_10240;
 // 
 // typedef struct $_124__1_10233 $_124__1_10233, *P$_124__1_10233;
@@ -49,7 +22,7 @@ typedef struct
 // typedef struct $_125__1_10226 $_125__1_10226, *P$_125__1_10226;
 // 
 // 
-// typedef float FLOAT;
+typedef float FLOAT;
 
 struct $_124__1_10233 {
     FLOAT r;
@@ -73,7 +46,7 @@ union $_123__1_10240 {
 // 
 // typedef struct $_125__1_3249 $_125__1_3249, *P$_125__1_3249;
 // 
-// typedef unsigned char UINT8;
+typedef unsigned char UINT8;
 // 
 // struct $_125__1_3249 {
 //     unsigned char component[4];
@@ -327,7 +300,7 @@ typedef CHAR *Ptr;
 // 
 // typedef struct stdCList<dc::File *,stdAllocator<stdCListNodeBase> > stdCList<dc::File *,stdAllocator<stdCListNodeBase> >, *PstdCList<dc::File *,stdAllocator<stdCListNodeBase> >;
 // 
-// typedef unsigned int UINT32;
+typedef unsigned int UINT32;
 // 
 // typedef struct stdRBTree stdRBTree, *PstdRBTree;
 // 
@@ -335,7 +308,7 @@ typedef CHAR *Ptr;
 // 
 // typedef struct stdRBTreeNode stdRBTreeNode, *PstdRBTreeNode;
 // 
-// typedef short unsigned int UINT16;
+typedef short unsigned int UINT16;
 
 struct stdRBTree {
     struct stdRBTreeNode *HeadPtr;
@@ -376,7 +349,7 @@ struct Context__1_2308 {
 //     struct HeapZone *_pHeap;
 // };
 // 
-typedef struct HeapZone {
+struct HeapZone {
     UINT32 uHZConstant;
     UINT32 *pFreeList;
     UINT32 *pEndFreeList;
@@ -386,7 +359,7 @@ typedef struct HeapZone {
     Ptr pEnd;
     char cName[16];
     UINT32 heapData;
-} HeapZone;
+};
 // 
 // typedef float _iconVu0FVECTOR[4];
 // 
@@ -394,7 +367,7 @@ typedef struct HeapZone {
 // 
 // typedef struct _LayerUVAnimMap _LayerUVAnimMap, *P_LayerUVAnimMap;
 // 
-// typedef unsigned int UINT;
+typedef unsigned int UINT;
 // 
 // struct _LayerUVAnimMap {
 //     UINT _uStartIdx;
@@ -421,7 +394,7 @@ typedef struct HeapZone {
 // 
 // typedef struct _renVU1CodeSeg _renVU1CodeSeg, *P_renVU1CodeSeg;
 // 
-// typedef int INT32;
+typedef int INT32;
 // 
 // struct _renVU1CodeSeg {
 //     UINT32 _uClipAddressOffset;
@@ -972,9 +945,9 @@ typedef unsigned char u_char;
 // 
 // typedef struct svrClientParm svrClientParm, *PsvrClientParm;
 // 
-// typedef short int INT16;
-// 
-// typedef long long unsigned int UINT64;
+typedef short int INT16;
+
+typedef long long unsigned int UINT64;
 // 
 // typedef struct stdSLListNode stdSLListNode, *PstdSLListNode;
 // 
@@ -1016,7 +989,7 @@ typedef struct svrCListContainer goServerContainerType;
 // 
 // typedef struct goPrototype goPrototype, *PgoPrototype;
 // 
-// typedef int BOOL;
+typedef int BOOL;
 // 
 // typedef struct anmJoint anmJoint, *PanmJoint;
 // 
@@ -1026,12 +999,13 @@ typedef struct svrCListContainer goServerContainerType;
 // 
 // typedef struct Vector4<float> Vector4<float>, *PVector4<float>;
 // 
+typedef struct Vector4 tVector;
 // 
 // typedef struct Color<float> Color<float>, *PColor<float>;
 // 
 typedef struct Color tColor;
 // 
-// typedef signed char INT8;
+typedef signed char INT8;
 // 
 // typedef struct anmParm anmParm, *PanmParm;
 // 
@@ -1123,9 +1097,9 @@ struct goServerContextParm {
     UINT32 _uUniqueID;
 };
 // 
-typedef struct VUVec4 {
-    UINT64 v;
-} VUVec4;
+struct VUVec4 {
+    int16 v;
+};
 // 
 struct TV {
     struct VUVec4 min;
@@ -1222,13 +1196,6 @@ struct wadContext {
 struct Color {
     union $_123__1_10240 field0_0x0;
 };
-
-typedef struct Vector4 {
-    INT32 x;
-    INT32 y;
-    INT32 z;
-    INT32 w;
-} tVector;
 
 struct renMaterial {
     UINT32 m_uID; /* Inherited from svrClientType */
@@ -1378,12 +1345,12 @@ struct vrFlags {
     int _uFlags[8];
 };
 
-typedef struct VUMat4 {
+struct VUMat4 {
     struct VUVec4 r0;
     struct VUVec4 r1;
     struct VUVec4 r2;
     struct VUVec4 r3;
-} VUMat4;
+};
 // 
 // struct anmClientProcessCallback__vtable {
 //     undefined field0_0x0;
@@ -1692,7 +1659,7 @@ struct renParticleContext__vtable {
     struct __vtbl_ptr_type PopClientContext;
     struct __vtbl_ptr_type ReadContextStack;
     struct __vtbl_ptr_type AllocateClient;
-    struct __vtbl_ptr_type AllocateClient_;
+    struct __vtbl_ptr_type AllocateClient;
     struct __vtbl_ptr_type FreeClient;
     struct __vtbl_ptr_type StartClient;
     struct __vtbl_ptr_type EndClient;
@@ -1959,7 +1926,7 @@ struct renParticleSystem {
     undefined field128_0x9d;
     undefined field129_0x9e;
     undefined field130_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field132_0xa4;
     undefined field133_0xa5;
     undefined field134_0xa6;
@@ -2077,7 +2044,7 @@ struct wadContext__vtable {
     struct __vtbl_ptr_type PopClientContext;
     struct __vtbl_ptr_type ReadContextStack;
     struct __vtbl_ptr_type AllocateClient;
-    struct __vtbl_ptr_type AllocateClient_;
+    struct __vtbl_ptr_type AllocateClient;
     struct __vtbl_ptr_type FreeClient;
     struct __vtbl_ptr_type StartClient;
     struct __vtbl_ptr_type EndClient;
@@ -2093,7 +2060,7 @@ struct wadContext__vtable {
 //     struct renGfxClutPool *m_pPool;
 // };
 // 
-typedef struct goGameObject {
+struct goGameObject {
     UINT32 m_uID; /* Inherited from svrClientType */
     UINT16 m_uClientFlags; /* Inherited from svrClient */
     UINT16 m_uContextID; /* Inherited from svrClient */
@@ -2225,7 +2192,7 @@ typedef struct goGameObject {
     undefined field128_0x9d;
     undefined field129_0x9e;
     undefined field130_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field132_0xa4;
     undefined field133_0xa5;
     undefined field134_0xa6;
@@ -2270,7 +2237,7 @@ typedef struct goGameObject {
     undefined field173_0x11d;
     undefined field174_0x11e;
     undefined field175_0x11f;
-} goGameObject;
+};
 
 struct svrListContainer {
     struct stdListNode *fHead; /* Inherited from stdDLList */
@@ -2786,29 +2753,6 @@ struct CullSphere {
 //     UINT _uGrowBySize;
 // };
 // 
-
-struct stdArrayW__vtable {
-    undefined field0_0x0;
-    undefined field1_0x1;
-    undefined field2_0x2;
-    undefined field3_0x3;
-    undefined field4_0x4;
-    undefined field5_0x5;
-    undefined field6_0x6;
-    undefined field7_0x7;
-    struct __vtbl_ptr_type stdArrayW;
-    struct __vtbl_ptr_type Resize;
-};
-
-struct stdArrayW {
-    UINT _uSize; /* Inherited from stdArrayPlacement<short unsigned int> */
-    UINT16 *_pBuffer; /* Inherited from stdArrayPlacement<short unsigned int> */
-    struct HeapZone *hz; /* Inherited from stdArrayPlacement<short unsigned int> */
-    struct stdArrayW__vtable *__vtable; /* Inherited from stdArrayPlacement<short unsigned int> */
-    UINT _uMaxSize;
-    UINT _uGrowBySize;
-};
-
 struct renModel {
     UINT32 m_uID; /* Inherited from svrClientType */
     UINT16 m_uClientFlags; /* Inherited from svrClient */
@@ -2941,7 +2885,7 @@ struct renModel {
     undefined field128_0x9d;
     undefined field129_0x9e;
     undefined field130_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field132_0xa4;
     undefined field133_0xa5;
     undefined field134_0xa6;
@@ -3052,9 +2996,9 @@ struct renModel {
 // };
 // 
 struct renGROBInstancedMaterials {
-    // renGROBMatList *_pNonPalAnimMaterialBuffer;
+    renGROBMatList *_pNonPalAnimMaterialBuffer;
     struct stdCList *_pAnimClutList;
-    // renGROBMatList _altMaterials;
+    renGROBMatList _altMaterials;
     INT _sMaterialSetPoolID;
 };
 
@@ -4324,7 +4268,7 @@ struct anmMatrixArrayPlayList__vtable {
     struct __vtbl_ptr_type anmMatrixArrayPlayList;
     struct __vtbl_ptr_type AllocatePlayer;
     struct __vtbl_ptr_type Process;
-    struct __vtbl_ptr_type Process_;
+    struct __vtbl_ptr_type Process;
 };
 
 struct anmMatrixArrayPlayer {
@@ -6747,7 +6691,7 @@ struct WadContext__vtable {
     struct __vtbl_ptr_type PopClientContext;
     struct __vtbl_ptr_type ReadContextStack;
     struct __vtbl_ptr_type AllocateClient;
-    struct __vtbl_ptr_type AllocateClient_;
+    struct __vtbl_ptr_type AllocateClient;
     struct __vtbl_ptr_type FreeClient;
     struct __vtbl_ptr_type StartClient;
     struct __vtbl_ptr_type EndClient;
@@ -7432,14 +7376,14 @@ typedef union goHandle__unnamed_0 goHandle__unnamed_0, *PgoHandle__unnamed_0;
 
 typedef struct goHandle__unnamed__unnamed_0 goHandle__unnamed__unnamed_0, *PgoHandle__unnamed__unnamed_0;
 
-typedef struct goHandle__unnamed__unnamed_0_ goHandle__unnamed__unnamed_0_, *PgoHandle__unnamed__unnamed_0_;
+typedef struct goHandle__unnamed__unnamed_0 goHandle__unnamed__unnamed_0, *PgoHandle__unnamed__unnamed_0;
 
 struct goHandle__unnamed__unnamed_0 {
     UINT32 m_uType:3;
     INT32 m_iNextAvailableIdx:29;
 };
 
-struct goHandle__unnamed__unnamed_0_ {
+struct goHandle__unnamed__unnamed_0 {
     UINT32 m_uDummyType:3;
     UINT32 m_uTimeStamp:20;
     UINT32 m_uIndex:9;
@@ -7448,7 +7392,7 @@ struct goHandle__unnamed__unnamed_0_ {
 union goHandle__unnamed_0 {
     UINT32 m_uAll;
     struct goHandle__unnamed__unnamed_0 field1;
-    struct goHandle__unnamed__unnamed_0_ field2;
+    struct goHandle__unnamed__unnamed_0 field2;
 };
 
 struct goHandle {
@@ -8028,7 +7972,7 @@ struct renEEPrim {
     undefined field128_0x9d;
     undefined field129_0x9e;
     undefined field130_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field132_0xa4;
     undefined field133_0xa5;
     undefined field134_0xa6;
@@ -8201,7 +8145,7 @@ struct goCreature__vtable {
     struct __vtbl_ptr_type GetTargetingPos;
     struct __vtbl_ptr_type DerivedTweaks;
     struct __vtbl_ptr_type GetNavBranch;
-    struct __vtbl_ptr_type GetNavBranch_;
+    struct __vtbl_ptr_type GetNavBranch;
     struct __vtbl_ptr_type GetFirstNavBankMotionP;
     struct __vtbl_ptr_type FindSound;
 };
@@ -8338,7 +8282,7 @@ struct Emitter {
     undefined field97_0x9d;
     undefined field98_0x9e;
     undefined field99_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field101_0xa4;
     undefined field102_0xa5;
     undefined field103_0xa6;
@@ -8671,7 +8615,7 @@ struct stdQue {
     UINT8 m_bMemAllocated;
 };
 
-typedef struct tMoveSystem {
+struct tMoveSystem {
     struct VUVec4 m_vCSMMovement;
     struct VUVec4 m_vCollisionResponse;
     struct VUVec4 m_vTargetPos;
@@ -8703,7 +8647,7 @@ typedef struct tMoveSystem {
     undefined field28_0xdd;
     undefined field29_0xde;
     undefined field30_0xdf;
-} tMoveSystem;
+};
 
 struct tCombat {
     FLOAT m_HitPoints;
@@ -9041,7 +8985,7 @@ struct tAnimSystem {
     undefined field26_0x1d;
     undefined field27_0x1e;
     undefined field28_0x1f;
-    struct tAnimSystem__vtable *__vtable_; /* Inherited from anmClientProcessCallback */
+    struct tAnimSystem__vtable *__vtable; /* Inherited from anmClientProcessCallback */
     undefined field30_0x24;
     undefined field31_0x25;
     undefined field32_0x26;
@@ -10218,7 +10162,7 @@ struct tNavBankBase {
     UINT8 m_BankType;
 };
 
-typedef struct goCreature {
+struct goCreature {
     struct goGameObject *m_pGameObject; /* Inherited from goBase */
     struct goCreature__vtable *__vtable; /* Inherited from goBase */
     struct tCreature *m_pCTweaks;
@@ -10272,7 +10216,7 @@ typedef struct goCreature {
     undefined field50_0x1ed;
     undefined field51_0x1ee;
     undefined field52_0x1ef;
-} goCreature;
+};
 // 
 // struct tActionPegasusRam {
 //     UINT8 m_Type; /* Inherited from tActionBase */
@@ -10563,7 +10507,7 @@ struct renShadowClient {
     undefined field128_0x9d;
     undefined field129_0x9e;
     undefined field130_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field132_0xa4;
     undefined field133_0xa5;
     undefined field134_0xa6;
@@ -15052,7 +14996,7 @@ struct DynExpr {
     union DynExpr__u u;
 };
 
-typedef struct Entity {
+struct Entity {
     struct VUMat4 matrix;
     UINT16 jointID;
     UINT16 id;
@@ -15076,7 +15020,7 @@ typedef struct Entity {
     struct DynExpr m_DebugString;
     struct DynExpr m_MarkerID;
     struct Entity__vtable *__vtable;
-} Entity;
+};
 
 struct Entity__vtable {
     undefined field0_0x0;
@@ -22001,12 +21945,12 @@ struct F_ButtonInstance__vtable {
 // 
 // typedef struct F_Cxform F_Cxform, *PF_Cxform;
 // 
-typedef struct F_Cxform {
+struct F_Cxform {
     INT16 mulr;
     INT16 mulg;
     INT16 mulb;
     INT16 mula;
-} F_Cxform;
+};
 // 
 // typedef struct F_Dictionary F_Dictionary, *PF_Dictionary;
 // 
@@ -22024,7 +21968,7 @@ struct NameValue {
 
 // typedef struct F_EditText F_EditText, *PF_EditText;
 // 
-typedef struct F_EditText {
+struct F_EditText {
     UINT16 variableID;
     UINT16 initTextID;
     UINT16 fontID;
@@ -22041,7 +21985,7 @@ typedef struct F_EditText {
     UINT16 height;
     UINT8 align;
     UINT8 flags;
-} F_EditText;
+};
 // 
 // typedef struct F_EditTextInstance F_EditTextInstance, *PF_EditTextInstance;
 // 
@@ -22124,7 +22068,7 @@ struct F_Matrix {
     INT16 ty;
 };
 
-typedef struct F_SpriteInstance {
+struct F_SpriteInstance {
     struct F_ObjectInstance *parent; /* Inherited from F_ObjectInstance */
     struct F_SpriteInstance__vtable *__vtable; /* Inherited from F_ObjectInstance */
     char *name;
@@ -22151,7 +22095,7 @@ typedef struct F_SpriteInstance {
     FLOAT rotation;
     undefined1 *spriteCB;
     void *cbData;
-} F_SpriteInstance;
+};
 
 struct F_Object {
     UINT16 type;
@@ -22165,7 +22109,7 @@ union F_EditTextInstance__value {
     BOOL b;
 };
 
-typedef struct F_EditTextInstance {
+struct F_EditTextInstance {
     struct F_ObjectInstance *parent; /* Inherited from F_ObjectInstance */
     struct F_EditTextInstance__vtable *__vtable; /* Inherited from F_ObjectInstance */
     struct F_MovieInstance *movieInstance;
@@ -22177,7 +22121,7 @@ typedef struct F_EditTextInstance {
     UINT16 rendered:1;
     UINT16 isString:1;
     undefined field10_0x1b;
-} F_EditTextInstance;
+};
 
 struct F_EditTextInstance__vtable {
     undefined field0_0x0;
@@ -22734,7 +22678,7 @@ struct renFlashClient {
     undefined field128_0x9d;
     undefined field129_0x9e;
     undefined field130_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field132_0xa4;
     undefined field133_0xa5;
     undefined field134_0xa6;
@@ -22796,7 +22740,7 @@ struct fvEntry {
     struct fvEntry__setFunc setFunc;
 };
 
-typedef struct FlashInterface {
+struct FlashInterface {
     char *prefix; /* Inherited from F_VarCmdHandler */
     int prefixLen; /* Inherited from F_VarCmdHandler */
     int lastCmdID; /* Inherited from F_VarCmdHandler */
@@ -23136,7 +23080,7 @@ typedef struct FlashInterface {
     int hitCounterState;
     BOOL doVibration;
     BOOL hack_enemyMeterOff;
-} FlashInterface;
+};
 // 
 // typedef struct FlashPool FlashPool, *PFlashPool;
 // 
@@ -27468,7 +27412,7 @@ struct fxTrail {
     undefined field125_0x9d;
     undefined field126_0x9e;
     undefined field127_0x9f;
-    struct stdSLListNode *_pNextItem_; /* Inherited from stdSLListNode */
+    struct stdSLListNode *_pNextItem; /* Inherited from stdSLListNode */
     undefined field129_0xa4;
     undefined field130_0xa5;
     undefined field131_0xa6;
@@ -31293,7 +31237,7 @@ struct goPlayer__vtable {
     struct __vtbl_ptr_type QuickBlock;
 };
 
-typedef struct goPlayer {
+struct goPlayer {
     struct goCreature *m_pCreature; /* Inherited from goCreatureController */
     struct goPlayerControls *m_pControls; /* Inherited from goCreatureController */
     struct goPlayer__vtable *__vtable; /* Inherited from goCreatureController */
@@ -31346,7 +31290,7 @@ typedef struct goPlayer {
     undefined field49_0x1ad;
     undefined field50_0x1ae;
     undefined field51_0x1af;
-} goPlayer;
+};
 // 
 // typedef struct goPrototypeLP goPrototypeLP, *PgoPrototypeLP;
 // 
@@ -32955,14 +32899,14 @@ struct SDecalContext__unnamed__unnamed_12 {
     FLOAT fOverrideMasterLength;
 };
 
-struct SDecalContext__unnamed__unnamed_12_ {
+struct SDecalContext__unnamed__unnamed_12 {
     FLOAT fOverrideTimer;
     FLOAT fOverrideLength;
 };
 
 union SDecalContext__unnamed_12 {
     struct SDecalContext__unnamed__unnamed_12 field0;
-    struct SDecalContext__unnamed__unnamed_12_ field1;
+    struct SDecalContext__unnamed__unnamed_12 field1;
     struct SDecalContext__unnamed__unnamed_121 field2;
 };
 
@@ -33416,7 +33360,7 @@ struct goSoldier__vtable {
     struct __vtbl_ptr_type GetTargetingPos;
     struct __vtbl_ptr_type DerivedTweaks;
     struct __vtbl_ptr_type GetNavBranch;
-    struct __vtbl_ptr_type GetNavBranch_;
+    struct __vtbl_ptr_type GetNavBranch;
     struct __vtbl_ptr_type GetFirstNavBankMotionP;
     struct __vtbl_ptr_type FindSound;
 };
@@ -45803,7 +45747,27 @@ typedef struct Vector4 tVector4;
 // 
 // typedef struct stdArrayW<short unsigned int>__vtable stdArrayW<short unsigned int>__vtable, *PstdArrayW<short unsigned int>__vtable;
 // 
+struct stdArrayW {
+    UINT _uSize; /* Inherited from stdArrayPlacement<short unsigned int> */
+    UINT16 *_pBuffer; /* Inherited from stdArrayPlacement<short unsigned int> */
+    struct HeapZone *hz; /* Inherited from stdArrayPlacement<short unsigned int> */
+    struct stdArrayW__vtable *__vtable; /* Inherited from stdArrayPlacement<short unsigned int> */
+    UINT _uMaxSize;
+    UINT _uGrowBySize;
+};
 
+struct stdArrayW__vtable {
+    undefined field0_0x0;
+    undefined field1_0x1;
+    undefined field2_0x2;
+    undefined field3_0x3;
+    undefined field4_0x4;
+    undefined field5_0x5;
+    undefined field6_0x6;
+    undefined field7_0x7;
+    struct __vtbl_ptr_type stdArrayW;
+    struct __vtbl_ptr_type Resize;
+};
 // 
 // typedef struct stdCList<goAIBase *,stdAllocator<stdCListNodeBase> > stdCList<goAIBase *,stdAllocator<stdCListNodeBase> >, *PstdCList<goAIBase *,stdAllocator<stdCListNodeBase> >;
 // 
@@ -50996,6 +50960,12 @@ typedef struct Vector4 tVector4;
 // 
 // typedef struct Vector4<int> tVector4I;
 // 
+struct Vector4 {
+    INT32 x;
+    INT32 y;
+    INT32 z;
+    INT32 w;
+};
 // 
 // typedef enum tVideoMode {
 //     VESA=0,
@@ -52364,5 +52334,3 @@ typedef struct Vector4 tVector4;
 //     INT16 m_V2; /* Inherited from tFS_Zoom */
 // };
 // 
-
-#endif

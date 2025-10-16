@@ -10,7 +10,6 @@
 # Linkfile script for ee-ld
 */
 INCLUDE "symbols.ld"
-INCLUDE "extrasym.ld"
 
 ENTRY(__start);
 

@@ -15,7 +15,7 @@ typedef unsigned int size_t;
 #define SCE_NOBUF       0x4000  /* no device buffer and console interrupt */
 #define SCE_NOWAIT      0x8000  /* asyncronous i/o */
 
-typedef struct sce_stat {
+struct sce_stat {
         unsigned int    st_mode;        /* �ե�����μ���(file/dir) */
                                         /* �ȥ⡼��(R/W/X) */
         unsigned int    st_attr;        /* �ǥХ�����¸��°�� */
@@ -25,7 +25,7 @@ typedef struct sce_stat {
         unsigned char   st_mtime[8];    /* �ǽ��ѹ����� */
         unsigned int    st_hisize;      /* �ե����륵���� ��� 32bit */
         unsigned int    st_private[6];  /* ����¾ */
-} sce_stat;
+};
 
 typedef struct sce_dirent {
         struct sce_stat d_stat; 
@@ -36,9 +36,6 @@ typedef struct sce_dirent {
 int sceSifLoadModule(char* pathname, int flags, int);
 int sceSifSearchModuleByName(const char *modulename);
 
-int sceDopen(const char *dirname);
-int sceDclose(int fd);
-int sceDread(int fd, struct sce_dirent *buf);
 
 int sceOpen(const char *pathname, int flags);
 int sceClose(int fd);

@@ -25,12 +25,6 @@ struct sce_stat {
         unsigned int    st_private[6];  /* ����¾ */
 };
 
-typedef struct sce_dirent {
-        struct sce_stat d_stat; 
-        char d_name[256];       
-        void    *d_private;     
-} sce_dirent;
-
 int sceDopen(const char *dirname);
 int sceDclose(int fd);
 int sceDread(int fd, struct sce_dirent *buf);

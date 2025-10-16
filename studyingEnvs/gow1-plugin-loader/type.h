@@ -1,8 +1,6 @@
 #ifndef TYPE_H
 #define TYPE_H
 
-#include "stdint.h"
-
 #ifndef NULL
 #define NULL	(void *)0
 #endif
@@ -20,9 +18,7 @@
 #define INT64 long long int
 #define UINT64 unsigned long long int
 typedef unsigned char   undefined;
-typedef uint32_t u32;
-typedef uint16_t u16;
-typedef unsigned char u8;
+
 typedef unsigned char    byte;
 typedef unsigned int    dword;
 typedef long long    int16;

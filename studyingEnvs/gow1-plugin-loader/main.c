@@ -1,5 +1,4 @@
 #include "elf.h"
-#include "erl.h"
 #include "injector.h"
 #include "sifdev.h"
 #include "stdio.h"
@@ -7,151 +6,284 @@
 #include "type.h"
 // FD8F0
 
-#define PLUGIN_HEAP_SIZE 0x61A80
-#define PLUGIN_HEAP_START 0x96000
+#define PLUGIN_HEAP_SIZE 0x2D8E0
+#define PLUGIN_HEAP_START 0xD0000
+
+typedef uint32_t u32;
+
+typedef struct t_ee_sema
+{
+    int count,
+        max_count,
+        init_count,
+        wait_threads;
+    u32 attr,
+        option;
+} ee_sema_t;
 
 void FlushCache(uint32_t);
 
-typedef struct HeapZone {
-    UINT32 uHZConstant;
-    UINT32 *pFreeList;
-    UINT32 *pEndFreeList;
-    struct HeapZone *pNextZone;
-    char * pStart;
-    char * pStartUse;
-    char * pEnd;
-    UINT32 *pMasterChunkList;
-    UINT32 *pMasterList;
-    UINT32 uMoreMasters;
-    char cName[16];
-    UINT32 heapData;
-} HeapZone;
-
-extern HeapZone *ZoneList;
-
-uint *dword_2CB944 = (uint*)0x2CB944;
-uint *dword_2CB948 = (uint*)0x2CB948;
-
-extern uint TheZone;
-
-uint Mem_FreeBytes(uint  a1, uint a2)
-{
-    uint  v2; // $a2
-    int i; // $a3
-    int v4; // $v1
-
-    if ( !a1 )
-    {
-        if ( *dword_2CB944 == (uint )*dword_2CB948 )
-            a1 = 0LL;
-        else
-            a1 = *(int *)(4 * *dword_2CB944 + TheZone);
-    }
-    if ( a2 )
-        *(uint *)a2 = 0;
-    v2 = *(int *)(a1 + 4);
-    for ( i = 0; v2 != a1; i += v4 )
-    {
-        v4 = (*(uint *)v2 & 0x1FFFFFF) - 2;
-        if ( a2 )
-            ++*(uint *)a2;
-        v2 = *(int *)(v2 + 4);
-    }
-    return 4 * i;
-}
-
-void PrintHeapStats()
-{
-    int iVar1;
-    int iVar2;
-    int iVar3;
-    char* pCVar4;
-    int iVar5;
-    HeapZone *zone;
-    long lVar6;
-    UINT32 freeBlocks;
-    
-    _printf("            Name        Free\n");
-    _printf("  ============================================================================\n");
-    lVar6 = (long)(int)ZoneList;
-    if (lVar6 != 0) {
-        pCVar4 = ZoneList->pEnd;
-        while( true ) {
-            zone = (HeapZone *)lVar6;
-            iVar3 = Mem_FreeBytes((uint)zone,(uint)&freeBlocks);
-            _printf("%20s %10d\n",zone->cName, iVar3);
-            lVar6 = (long)(int)zone->pNextZone;
-            if (lVar6 == 0) break;
-            pCVar4 = zone->pNextZone->pEnd;
-        }
-    }
-}
-
 u32 *Mem_NewHeapZone(u32 pStart,u32 byteSize,char *pHeapName,u32 moreMasters);
-u32 *Mem_GetCurrentHeapZone();
+u32 Mem_GetCurrentHeapZone();
 void *Mem_NewPtr(u32*, u32, u32);
 void sys_GameLoop(u32);
 void Mem_FreePtr(void *);
-extern u32 *Mem__pRootHeap;
-void Mem_SetCurrentHeapZone(u32 *a1);
 
-u32 *pluginHeap = NULL;
-symbol_t *global_symbols[6] = {NULL, NULL, NULL, NULL, NULL, NULL};
-erl_record_t * erl_record_root = NULL;
+extern int _fs_init;
+extern int _fs_iob_semid;
 
-char *symbol_path = "host0:\\SYMBOLS.DAT";
-char symbol_name_buffer[255];
+int _sceFsWaitS(int);
+int sceFsInit();
+int _sceFsSigSema();
+int new_iob();
+void WaitSema(int);
+void DeleteSema(int);
+int sceFsSifCallRpc(uint,uint,uint,uint,uint,uint,uint,uint,uint,uint);
+int CreateSema(ee_sema_t*);
+void SignalSema(int);
+int get_iob(uint);
 
-void createPluginHeapZone()
+extern uint DAT_329344;
+extern uint DAT_329348;
+extern uint DAT_32934C;
+extern uint DAT_329350;
+extern uint DAT_329354;
+extern uint DAT_32974B;
+extern uint _send_data;
+extern uint _rcv_data_rpc;
+extern uint _cd;
+extern uint _iob;
+
+int _sceCallCode(char *a1, int a2)
 {
-    pluginHeap = Mem_NewHeapZone(PLUGIN_HEAP_START, PLUGIN_HEAP_SIZE, "PLUGIN", 0x40);
+    uint i; // $s0
+    int v5; // $v1
+    int v6; // $s1
+    int result; // $v0
+    int v8; // $s0
+    ee_sema_t v9; // [sp+10h] [-B0h] BYREF
+    int v10; // [sp+14h] [-ACh]
+    int v11; // [sp+18h] [-A8h]
+    char *v12; // [sp+24h] [-9Ch]
+    int v13; // [sp+30h] [-90h] BYREF
+
+    _sceFsWaitS(a2);
+    if ( !_fs_init )
+        sceFsInit();
+    i = 0LL;
+    *((char*)&DAT_32934C) = *a1;
+    if ( (unsigned char)DAT_32934C << 24 )
+    {
+        for ( i = 1LL; i < 1024; i = (int)i + 1 )
+        {
+            v5 = (unsigned char)a1[i];
+            *((char *)&_send_data + i + 12) = v5;
+            if ( !(v5 << 24) )
+                break;
+        }
+    }
+
+    if ( i == 1024 )
+    {
+        *(char*)((uint)&_send_data + 0x40B) = 0;
+        i = 1023;
+    }
+
+    v10 = 1;
+    v12 = "SceStdioCCodeSema";
+    v11 = 0;
+    v6 = CreateSema(&v9);
+    DAT_329344 = (int)&v13;
+    _send_data = v6;
+    DAT_329348 = 4;
+    if ( sceFsSifCallRpc((uint)&_cd, a2, 0LL, (uint)&_send_data, (int)i + 13, (uint)&_rcv_data_rpc, 4LL, 0LL, 0, 0) >= 0 )
+    {
+        v8 = *(uint*)0x20329F80;
+        _sceFsSigSema();
+        if ( v8 )
+        {
+            WaitSema(v6);
+            DeleteSema(v6);
+            result = v13;
+        }
+        else
+        {
+            DeleteSema(v6);
+            result = -11LL;
+        }
+    }
+    else
+    {
+        DeleteSema(v6);
+        _sceFsSigSema();
+        result = -11LL;
+    }
+    return result;
 }
+
+int sceDopen(char *pathname)
+{
+    int v2; // $v0
+    char *v3; // $s2
+    int v5; // $s1
+    int v6; // $a1
+    int v7; // $a2
+    int v8; // $a3
+    int v9; // $a0
+
+    _sceFsWaitS(9LL);
+    if ( !_fs_init )
+        sceFsInit();
+    _sceFsSigSema();
+    v2 = new_iob();
+    v3 = (char *)v2;
+    if ( !v2 )
+        return -19LL;
+    v5 = _sceCallCode(pathname, 9LL);
+    WaitSema(_fs_iob_semid);
+    if ( v5 >= 0 )
+    {
+        *(int *)v3 = v5;
+        v9 = _fs_iob_semid;
+        v5 = (v3 - (char *)&_iob) >> 4;
+    }
+    else
+    {
+        *((int *)v3 + 1) = 0;
+        v9 = _fs_iob_semid;
+    }
+    SignalSema(v9);
+    return v5;
+}
+
+int sceDread(int fd, void* buf)
+{
+    int v3; // $s0
+    int v4; // $v1
+    int result; // $v0
+    int v6; // $s1
+    int v7; // $s0
+    ee_sema_t v8; // [sp+10h] [-70h] BYREF
+    int v9; // [sp+14h] [-6Ch]
+    int v10; // [sp+18h] [-68h]
+    const char *v11; // [sp+24h] [-5Ch]
+    int v12; // [sp+30h] [-50h] BYREF
+
+    v3 = get_iob(fd);
+    _sceFsWaitS(11LL);
+    if ( _fs_init && v3 && *(int *)(v3 + 4) )
+    {
+        v4 = *(int *)v3;
+        DAT_329350 = (uint)buf;
+        DAT_32934C = v4;
+        v9 = 1;
+        v11 = "SceStdioDreadSema";
+        v10 = 0;
+        v6 = CreateSema(&v8);
+        _send_data = v6;
+        DAT_329344 = (int)&v12;
+        DAT_329348 = 4;
+        if ( sceFsSifCallRpc((uint)&_cd, 11LL, 0LL, (uint)&_send_data, 32LL, (uint)&_rcv_data_rpc, 4LL, 0LL, 0, 0) >= 0 )
+        {
+            v7 = *(uint*)0x20329F80;
+            _sceFsSigSema();
+            if ( v7 )
+            {
+                WaitSema(v6);
+                DeleteSema(v6);
+                result = v12;
+            }
+            else
+            {
+                DeleteSema(v6);
+                result = -11LL;
+            }
+        }
+        else
+        {
+            WaitSema(v6);
+            _sceFsSigSema();
+            result = -11LL;
+        }
+    }
+    else
+    {
+        _sceFsSigSema();
+        result = -9LL;
+    }
+    return result;
+}
+
+int sceDclose(int fd)
+{
+    int v1; // $s0
+    int result; // $v0
+    int v3; // $s1
+    int v4; // $s0
+    ee_sema_t v5; // [sp+10h] [-80h] BYREF
+    int v6; // [sp+14h] [-7Ch]
+    int v7; // [sp+18h] [-78h]
+    const char *v8; // [sp+24h] [-6Ch]
+    int v9; // [sp+30h] [-60h] BYREF
+
+    v1 = get_iob(fd);
+    _sceFsWaitS(10LL);
+    if ( _fs_init && v1 && *(int *)(v1 + 4) )
+    {
+        DAT_32934C = *(int *)v1;
+        v6 = 1;
+        v8 = "SceStdioDcloseSema";
+        v7 = 0;
+        v3 = CreateSema(&v5);
+        _send_data = v3;
+        DAT_329344 = (int)&v9;
+        DAT_329348 = 4;
+        if ( sceFsSifCallRpc((uint)&_cd, 10LL, 0LL, (uint)&_send_data, 20LL, (uint)&_rcv_data_rpc, 4LL, 0LL, 0, 0) < 0 )
+        {
+            DeleteSema(v3);
+            _sceFsSigSema();
+            result = -11LL;
+        }
+        else
+        {
+            *(int *)(v1 + 4) = 0;
+            v4 = *(uint*)0x20329F80;
+            _sceFsSigSema();
+            if ( v4 )
+            {
+                // WaitSema(v3);
+                DeleteSema(v3);
+                result = v9;
+                if ( v9 > -1LL )
+                    result = 0LL;
+            }
+            else
+            {
+                DeleteSema(v3);
+                result = -11LL;
+            }
+        }
+    }
+    else
+    {
+        _sceFsSigSema();
+        result = -9LL;
+    }
+    return result;
+}
+
+u32 *pluginHeap;
 
 void *mem_alloc(u32 nBytes, u32 byteAlignment)
 {
-    void *ptr = Mem_NewPtr(Mem_GetCurrentHeapZone(), nBytes, byteAlignment == 0 ? 8 : byteAlignment);
-    // _printf("Alocando %d bytes em %p, freebytes: %d!\n", nBytes, ptr, Mem_FreeBytes((uint)pluginHeap, 0));
-    return ptr;
-}
-
-void mem_free(void* ptr)
-{
-    Mem_FreePtr(ptr);
-}
-
-char *my_strndup(const char *s, size_t n)
-{
-    char* new = mem_alloc(n + 1, 0);
-    if (new) {
-        strncpy(new, s, n);
-        new[n] = '\0';
+    if (!pluginHeap)
+    {
+        return NULL;
     }
-    return new;
-}
 
-char *my_strdup(const char *s)
-{
-    char *p = mem_alloc(strlen(s) + 1, 0);
-    if (p != NULL)
-        strcpy(p,s);
-    return p;
+    _printf("Alocando %d nbytes!\n", nBytes);
+    return Mem_NewPtr(pluginHeap, nBytes, byteAlignment);
 }
-
-char * reloc_types[] = {
-    "R_MIPS_NONE",
-    "R_MIPS_16",
-    "R_MIPS_32",
-    "R_MIPS_REL32",
-    "R_MIPS_26",
-    "R_MIPS_HI16",
-    "R_MIPS_LO16",
-    "R_MIPS_GPREL16",
-    "R_MIPS_LITERAL",
-    "R_MIPS_GOT16",
-    "R_MIPS_PC16",
-    "R_MIPS_CALL16",
-    "R_MIPS_GPREL32"
-};
 
 int EndsWith(const char *str, const char *suffix)
 {
@@ -164,221 +296,108 @@ int EndsWith(const char *str, const char *suffix)
     return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
 }
 
-symbol_t *create_symbol(char *symbol, u32 address)
+char buffertest[50];
+
+void *loadELF()
 {
-    if (!symbol)
+    char *rootDir = "cdrom0:\\";
+    int dirfd = sceDopen(rootDir);
+    char fname[32];
+    sce_dirent dirbuf;
+
+    // sceDread(dirfd, &dirbuf);
+    // sceDread(dirfd, &dirbuf);
+
+    while (sceDread(dirfd, &dirbuf) > 0)
     {
-        _printf("not possible to create symbol with name %s\n", symbol);
-        return NULL;
+        // if (EndsWith(dirbuf.d_name, ".ELF;1"))
+        // {
+        //     break;
+        // }
+        _printf("ELF: %s found size %d!\n", dirbuf.d_name, dirbuf.d_stat.st_size);
     }
     
-    symbol_t *sym = mem_alloc(sizeof(symbol_t), 0);
 
-    if (!sym)
-    {
-        _printf("not enough memory for symbol!\n");
-        return NULL;
-    }
-    
-    sym->name = symbol;
-    sym->address = address;
+    // u32 elf_size = dirbuf.d_stat.st_size;
+    // strcpy(fname, dirbuf.d_name);
 
-    return sym;
-}
-
-symbol_t *readNextSymbol(int fd, uint *offset, size_t file_size)
-{
-    char line[256];
-    char *str_end_line;
-
-    if (*offset >= file_size)
-    {
-        return NULL;
-    }
-
-    // _printf("Initial offset: %d\n\n", *offset);
-    
-    line[255] = '\0';
-    sceRead(fd, line, 255);
-
-    str_end_line = strchr(line, '\n');
-
-    if (str_end_line == NULL)
-    {
-        _printf("End of the line bigger than 255 bytes.");
-
-        return NULL;
-    }
-    
-    // _printf("%s\n", line);
-
-    char *div = strchr(line, ' ');
-    uint name_size = (uint)div - (uint)line;
-    
-    symbol_t *symbol = create_symbol(my_strndup(line, name_size), strtol(++div, NULL, 16));
-
-    *offset += (uint)str_end_line - (uint)line + 1;
-    sceLseek(fd, *offset, 0);
-
-    if (!symbol)
-    {
-        return NULL;
-    }
-    
-    // _printf("%s %x\n", symbol->name, symbol->address);
-
-    return symbol;
-
-}
-
-void load_global_symbols()
-{
-    _printf("Loading Symbols!\n");
-
-    sce_stat stat;
-    
-    if (sceGetstat(symbol_path, &stat) < 0)
-    {
-        _printf("not possible to load symbols!\n");
-        return;
-    }
-    
-    size_t size = stat.st_size;
-
-    int fd = sceOpen(symbol_path, SCE_RDONLY);
-
-    symbol_t *sym;
-    uint offset = 0;
-    
-    while ((sym = readNextSymbol(fd, &offset, size)) != NULL)
-    {
-        symbol_t **symbol = &global_symbols[strlen(sym->name) % 6];
-        sym->next = *symbol;
-        *symbol = sym;
-    }
-
-    _printf("Global symbols loaded.\n");
-
-    sceClose(fd);
-}
-
-void destroy_global_symbols()
-{
-
-    _printf("destroying global symbols!\n");
-
-    for (size_t i = 0; i < 6; i++)
-    {
-        symbol_t *sym = global_symbols[i];
-        
-        while (sym)
-        {
-            symbol_t *next = sym->next;
-
-            mem_free(sym->name);
-            mem_free(sym);
-
-            sym = next;
-        }
-        
-    }
-}
-
-u32 align(u32 x, int align) {
-    // if (align < 16)
-    //     align = 16;
-
-    align--;
-
-    if (x & align) 
-    {
-        x |= align;
-        x++;
-    }
-
-    return x;
-}
-
-symbol_t *erl_find_local_symbol(const char *symbol, erl_record_t *erl)
-{
-    if (!erl) return NULL;
-    symbol_t *sym = erl->symbols[strlen(symbol) % 6];
-
-    while (sym != NULL)
-    {
-        if (!strcmp(sym->name, symbol))
-        {
-            return sym;
-        }
-        
-        sym = sym->next;
-    }
-    
+    _printf("%d\n", sceDclose(dirfd));
     return NULL;
+//     char format_path[32];
+//     sprintf(format_path, "%s%s", rootDir, fname);
+//     int fd = sceOpen(format_path, SCE_RDONLY);
+// 
+//     _printf("%s\n", format_path);
+// 
+//     u32 *elf = mem_alloc(elf_size, 4);
+// 
+//     if (elf && fd >= 0)
+//     {
+//         sceRead(fd, elf, elf_size);
+//         _printf("Elf alocado em: %p %d\n", elf, fd);
+//         sceClose(fd);
+//         
+//         return elf;
+//     }
+// 
+//     _printf("*** Unable to alloc memory %d to load elf ***!\n", elf_size);
+//     return NULL;
 }
 
-symbol_t *r_find_symbol(const char * symbol, struct erl_record_t * erl) {
-    if (!erl) return NULL;
-    
-    symbol_t *sym = erl->symbols[strlen(symbol) % 6];
-
-    while (sym != NULL)
-    {
-        if (!strcmp(sym->name, symbol))
-        {
-            return sym;
-        }
-        
-        sym = sym->next;
-    }
-    
-    return r_find_symbol(symbol, erl->next);
-}
-
-symbol_t *erl_find_symbol(const char * symbol) {
-    if (global_symbols)
-    {
-        symbol_t *sym = global_symbols[strlen(symbol) % 6];
-        
-        while (sym != NULL)
-        {
-                if (!strcmp(sym->name, symbol))
-                {
-                    return sym;
-                }
-            
-            sym = sym->next;
-        }
-        
-    }
-
-    return r_find_symbol(symbol, erl_record_root);
-}
-
-int add_symbol(erl_record_t*erl, char *symbol, u32 address)
+typedef struct
 {
-    if (erl_find_symbol(symbol))
-	{
-        _printf("%s Symbol already exists.\n", symbol);
-        return -1;
-    }
+    uint L2 : 1;
+    uint R2 : 1;
+    uint L1 : 1;
+    uint R1 : 1;
+    uint triangle : 1;
+    uint circle : 1;
+    uint X : 1;
+    uint square : 1;
+    uint select : 1;
+    uint L3 : 1;
+    uint R3 : 1;
+    uint start : 1;
+    uint UP : 1;
+    uint RIGHT : 1;
+    uint DOWN : 1;
+    uint LEFT : 1;
+    ushort dummy;
+} Gpad;
 
-    symbol_t *new_sym = create_symbol(my_strdup(symbol), address);
+extern uint g_Timer;
+uint time;
+Gpad gamepad;
 
-    if (!new_sym)
+Gpad ReadPad();
+
+uint abc = 0;
+
+void GameState_Update();
+
+void loop()
+{
+    gamepad = ReadPad(0);
+
+    if ((g_Timer - time)/10 > 0.1f)
     {
-        return -1;
+        if (gamepad.L1 && !abc)
+        {
+            abc = 1;
+            loadELF();
+        }
+        
+        time = g_Timer;
     }
-
-    symbol_t **sym = &erl->symbols[strlen(symbol) % 6];
-
-    new_sym->next = *sym;
-    *sym = new_sym;
-    
-    return 0;
+    GameState_Update();
 }
 
-int apply_reloc(u8 *reloc, u32 type, u32 addr)
+void execEntry(u32 address)
+{
+    ((void(*)())address)();
+}
+
+int applyReloc(u32 *reloc, u32 type, u32 addr)
 {
     u32 u_current_data;
     int s_current_data;
@@ -411,493 +430,127 @@ int apply_reloc(u8 *reloc, u32 type, u32 addr)
     return 0;
 }
 
-erl_record_t *allocate_erl_record() {
-    struct erl_record_t * r;
-
-    if (!(r = (erl_record_t *) mem_alloc(sizeof(erl_record_t), 0)))
-        return 0;
-
-    r->bytes = NULL;
-    memset(r->symbols, 0, 24);
-
-    r->next = erl_record_root;
-    erl_record_root = r;
-
-    return r;
-}
-
-void erl_flush_symbols(struct erl_record_t * erl) 
+Elf32_Shdr *findSymTab(Elf32_Shdr *shdr_array, u32 shnum)
 {
-    for (size_t i = 0; i < 6; i++)
+    for (u32 i = 0; i < shnum; i++)
     {
-        symbol_t *sym = erl->symbols[i];
-        symbol_t *next;
-        while (sym != NULL)
+        if (shdr_array[i].sh_type == SHT_SYMTAB)
         {
-            next = sym->next;
-
-            mem_free(sym->name);
-            mem_free(sym);
-
-            sym = next;
-        }
-    }
-}
-
-void destroy_erl_record(erl_record_t * erl) {
-    if (!erl) return;
-
-    erl_flush_symbols(erl);
-
-    erl_record_t *curr_erl = erl_record_root;
-    erl_record_t *prev_erl = NULL;
-
-    if (curr_erl && curr_erl == erl)
-    {
-        erl_record_root = curr_erl->next;
-        curr_erl = NULL;
-        return;
-    }
-
-    while (curr_erl && curr_erl != erl)
-    {
-        prev_erl = curr_erl;
-        curr_erl = curr_erl->next;
-    }
-    
-    if (!curr_erl)
-    {
-        return;
-    }
-
-    prev_erl->next = curr_erl->next;
-
-    mem_free(erl);
-}
-
-int read_erl(int fd, erl_record_t** p_erl_record)
-{
-    Elf32_Ehdr hdr;
-    Elf32_Shdr *sec;
-    Elf32_Sym *sym;
-    Elf32_Rela reloc;
-
-    char * names = 0, * strtab_names = 0, * reloc_section = 0;
-    int symtab = 0, strtab = 0, linked_strtab = 0;
-    u32 fullsize = 0;
-    struct erl_record_t * erl_record = 0;
-    symbol_t *s = 0;
-
-#define free_and_return(code) \
-    if (names) mem_free(names); \
-    if (sec) mem_free(sec); \
-    if (strtab_names) mem_free(strtab_names); \
-    if (sym) mem_free(sym); \
-    if ((code < 0) && erl_record) destroy_erl_record(erl_record); \
-return code
-
-    if (!(erl_record = allocate_erl_record())) 
-    {
-        _printf("Memory allocation error.\n");
-        free_and_return(-1);
-    }
-
-    sceRead(fd, &hdr, sizeof(Elf32_Ehdr));
-
-    if ((hdr.e_ident[EI_MAG0] != ELFMAG0) || (hdr.e_ident[EI_MAG1] != ELFMAG1) || (hdr.e_ident[EI_MAG2] != ELFMAG2) || ((hdr.e_ident[EI_MAG3] != ELFMAG3))) {
-        _printf("Not an ELF file.\n");
-        free_and_return(-1);
-    }
-
-    if (hdr.e_type != REL_TYPE) 
-    {
-        _printf("File isn't a relocatable ELF file.\n");
-        free_and_return(-1);
-    }
-
-    if (sizeof(Elf32_Shdr) != hdr.e_shentsize) 
-    {
-        _printf("Inconsistancy in section table entries.\n");
-        free_and_return(-1);
-    }
-
-    if (!(sec = mem_alloc(sizeof(Elf32_Shdr) * hdr.e_shnum, 0)))
-    {
-        _printf("Not enough memory.\n");
-        free_and_return(-1);
-    }
-
-    sceLseek(fd, hdr.e_shoff, 0);
-    sceRead(fd, sec, sizeof(Elf32_Shdr) * hdr.e_shnum);
-
-	if (!(names = (char *) mem_alloc(sec[hdr.e_shstrndx].sh_size, 0))) 
-    {
-        _printf("Not enough memory.\n");
-        free_and_return(-1);
-	}
-
-    sceLseek(fd, sec[hdr.e_shstrndx].sh_offset, 0);
-    sceRead(fd, names, sec[hdr.e_shstrndx].sh_size);
-
-    for (uint i = 1; i < hdr.e_shnum; i++)
-    {
-        if (!strcmp(names + sec[i].sh_name, ".symtab")) 
-        {
-            symtab = i;
-            linked_strtab = sec[i].sh_link;
-        } else if (!strcmp(names + sec[i].sh_name, ".strtab")) 
-        {
-            strtab = i;
-        }
-        if (((sec[i].sh_type == SHT_PROGBITS) || (sec[i].sh_type == SHT_NOBITS)) && (sec[i].sh_flags & SHF_ALLOC)) 
-        {
-        // Let's use this, it's not filled for relocatable objects.
-            fullsize = align(fullsize, sec[i].sh_addralign);
-            sec[i].sh_addr = fullsize;
-            fullsize += sec[i].sh_size;
-            _printf("Section to load at %08X:\n", sec[i].sh_addr);
-        }
-    }
-
-    if (symtab) {
-        _printf("Discovered symtab = %i\n", symtab);
-    } else {
-        _printf("No symbol table.\n");
-        free_and_return(-1);
-    }
-
-    if (strtab != linked_strtab) 
-    {
-        _printf("Warning, inconsistancy: strtab != symtab.sh_link (%i != %i)\n", strtab, linked_strtab);
-        free_and_return(-1);
-    }
-
-    if (sizeof(Elf32_Sym) != sec[symtab].sh_entsize) 
-    {
-        _printf("Symbol entries not consistant.\n");
-        free_and_return(-1);
-    }
-
-    _printf("Computed needed size to load the erl file: %i\n", fullsize);
-
-    
-    if (!(erl_record->bytes = (u8 *) mem_alloc(fullsize, 0))) {
-        _printf("Cannot allocate ERL bytes.\n");
-        free_and_return(-1);
-    }
-
-    erl_record->fullsize = fullsize;
-
-    _printf("Base address: %08X\n", erl_record->bytes);
-
-    for (uint i = 1; i < hdr.e_shnum; i++) 
-    {
-        if (!(sec[i].sh_flags & SHF_ALLOC))
-        {
-            continue;
+            return &shdr_array[i];
         }
         
-        switch (sec[i].sh_type) {
-        case SHT_PROGBITS:
-                // **TODO** handle compession
-            _printf("reading section %s at %08X.\n", names + sec[i].sh_name, erl_record->bytes + sec[i].sh_addr);
-
-            sceLseek(fd, sec[i].sh_offset, 0);
-            sceRead(fd, erl_record->bytes + sec[i].sh_addr, sec[i].sh_size);
-            break;
-        case SHT_NOBITS:
-            _printf("Zeroing section %s at %08X.\n", names + sec[i].sh_name, erl_record->bytes + sec[i].sh_addr);
-            memset(erl_record->bytes + sec[i].sh_addr, 0, sec[i].sh_size);
-            break;
-        }
     }
-
-    if (!(strtab_names = (char *) mem_alloc(sec[strtab].sh_size, 0))) 
-    {
-        _printf("Not enough memory.\n");
-        free_and_return(-1);
-    }
-
-    sceLseek(fd, sec[strtab].sh_offset, 0);
-    sceRead(fd, strtab_names, sec[strtab].sh_size);
-
-	if (!(sym = (Elf32_Sym *) mem_alloc(sec[symtab].sh_size, 0))) {
-        _printf("Not enough memory.\n");
-        free_and_return(-1);
-	}
-
-    sceLseek(fd, sec[symtab].sh_offset, 0);
-    sceRead(fd, sym, sec[symtab].sh_size);
-
-   // Parsing sections to find relocation sections.
-    for (size_t i = 0; i < hdr.e_shnum; i++) {
-        if (sec[i].sh_type != SHT_RELA)
-            continue;
-
-        if (sec[sec[i].sh_info].sh_type != 1 || !(sec[sec[i].sh_info].sh_flags & SHF_ALLOC))
-            continue;
-
-        _printf("Section %i (%s) contains relocations for section %i (%s):\n",
-        i, names + sec[i].sh_name, sec[i].sh_info, names + sec[sec[i].sh_info].sh_name);
-
-        if (sec[i].sh_entsize != sizeof(Elf32_Rela)) {
-            _printf("Warning: inconsistancy in relocation table.\n");
-            free_and_return(-1);
-        }
-
-        // Loading relocation section.
-        // **TODO** handle compession
-        sceLseek(fd, sec[i].sh_offset, 0);
-        if (!(reloc_section = (char *) mem_alloc(sec[i].sh_size, 0))) 
-        {
-            _printf("Not enough memory.\n");
-            free_and_return(-1);
-        }
-        sceLseek(fd, sec[i].sh_offset, 0);
-        sceRead(fd, reloc_section, sec[i].sh_size);
-
-        // We found one relocation section, let's parse it to relocate.
-        _printf("   Num: Offset   Type           Symbol\n");
-        for (uint j = 0; (u32)j < (sec[i].sh_size / sec[i].sh_entsize); j++) 
-        {
-            int sym_n;
-
-            reloc = *((Elf32_Rela *) (reloc_section + j * sec[i].sh_entsize));
-
-            sym_n = reloc.r_info >> 8;
-            _printf("%6i: %08X %-14s %3i: ", j, reloc.r_offset, reloc_types[reloc.r_info & 255], sym_n);
-
-            switch(sym[sym_n].st_info & 15) {
-            case STT_NOTYPE:
-                _printf("external symbol reloc to symbol %s\n", strtab_names + sym[sym_n].st_name);
-                if (!(s = erl_find_symbol(strtab_names + sym[sym_n].st_name))) 
-                {
-                    // if(strcmp(strtab_names + sym[sym_n].st_name, "_Jv_RegisterClasses") != 0) 
-                    // {
-                    //     // add_loosy(erl_record, erl_record->bytes + sec[sec[i].sh_info].sh_addr + reloc.r_offset, reloc.r_info & 255, strtab_names + sym[sym_n].st_name);
-                    // }
-                    _printf("%s: Symbol not found.\n", strtab_names + sym[sym_n].st_name);
-                    free_and_return(-1);
-                } else {
-                    _printf("Found symbol at %08X, relocating.\n", s->address);
-                    if (apply_reloc(erl_record->bytes + sec[sec[i].sh_info].sh_addr + reloc.r_offset, reloc.r_info & 255, s->address + reloc.r_addend) < 0) 
-                    {
-                        _printf("Something went wrong in relocation.\n");
-                        free_and_return(-1);
-                    }
-                }
-                break;
-            case STT_SECTION:
-                _printf("internal section reloc to section %i (%s) %x\n", sym[sym_n].st_shndx, names + sec[sym[sym_n].st_shndx].sh_name, (u32) (erl_record->bytes + sec[sym[sym_n].st_shndx].sh_addr) + reloc.r_addend);
-                _printf("Relocating at %08X.\n", erl_record->bytes + sec[sym[sym_n].st_shndx].sh_addr);
-                if (apply_reloc(erl_record->bytes + sec[sec[i].sh_info].sh_addr + reloc.r_offset, reloc.r_info & 255, (u32) (erl_record->bytes + sec[sym[sym_n].st_shndx].sh_addr) + reloc.r_addend) < 0) 
-                {
-                    _printf("Something went wrong in relocation.\n");
-                    free_and_return(-1);
-                }
-                break;
-            case STT_OBJECT:
-            case STT_FUNC:
-                _printf("Relocating at %08X.\n", erl_record->bytes + sec[sym[sym_n].st_shndx].sh_addr + sym[sym_n].st_value);
-                if (apply_reloc(erl_record->bytes + sec[sec[i].sh_info].sh_addr + reloc.r_offset, reloc.r_info & 255, (u32) (erl_record->bytes + sec[sym[sym_n].st_shndx].sh_addr + sym[sym_n].st_value + reloc.r_addend)) < 0) 
-                {
-                    _printf("Something went wrong in relocation.\n");
-                    free_and_return(-1);
-                }
-                break;
-            default:
-                _printf("Unknown relocation. Bug inside.\n");
-                free_and_return(-1);
-            }
-        }
-        mem_free(reloc_section);
-    }
-
-    for (size_t i = 0; (u32)i < sec[symtab].sh_size / sec[symtab].sh_entsize; i++) 
-    {
-        if (((sym[i].st_info >> 4) == STB_GLOBAL) || ((sym[i].st_info >> 4) == STB_WEAK)) 
-        {
-            if ((sym[i].st_info & 15) != STT_NOTYPE) 
-            {
-                if (add_symbol(erl_record, strtab_names + sym[i].st_name, ((u32)erl_record->bytes) + sec[sym[i].st_shndx].sh_addr + sym[i].st_value) < 0) 
-                {
-                    _printf("%s Symbol probably alrw_ready exists, let's ignore that.\n", strtab_names + sym[i].st_name);
-                }
-            }
-        }
-    }
-    
-    *p_erl_record = erl_record;
-
-    free_and_return(0);
+    return NULL;
 }
 
-typedef int (*func_t)(void);
-
-
-erl_record_t *load_erl(char *fname)
+u32 calcContentSize(Elf32_Shdr *shdr_array, u32 shnum)
 {
-    erl_record_t *r;
-    symbol_t *s;
+    u32 alloc_size = 0;
 
-    int fd;
-
-    if ((fd = sceOpen(fname, SCE_RDONLY)) < 0)
+    for (u32 i = 0; i < shnum; i++)
     {
-        _printf("Error opening erl file: %s", fname);
-
-        return 0;
+        if ((shdr_array[i].sh_flags & SHF_WRITE | SHF_ALLOC | SHF_EXECINSTR))
+        {
+            alloc_size += shdr_array[i].sh_size;
+        }
     }
     
-    if (read_erl(fd, &r) < 0)
-    {
-        _printf("Error loading erl file.");
-        sceClose(fd);
-
-        return 0;
-    }
-
-	if ((s = erl_find_local_symbol("erl_id", r))) {
-		r->name = *(char **) s->address;
-	} else {
-        _printf("erl_id not found.\n");
-		r->name = 0;
-	}
-
-    _printf("erl_id = %s.\n", r->name);
-
-
-    if ((s = erl_find_local_symbol("_start", r))) 
-    {
-        _printf("_start = %08X\n", s->address);
-
-        ((func_t)s->address)();
-
-    }
+    return alloc_size;
 }
 
-// void execEntry(u32 address)
-// {
-//     ((void(*)())address)();
-// }
+int relocELFContent(u32 *elf)
+{
+    Elf32_Ehdr *ehdr = (Elf32_Ehdr *)elf;
+    Elf32_Shdr *shdr_array = (Elf32_Shdr *)((u32)ehdr + ehdr->e_shoff);
 
-// 
-// Elf32_Shdr *findSymTab(Elf32_Shdr *shdr_array, u32 shnum)
-// {
-//     for (u32 i = 0; i < shnum; i++)
-//     {
-//         if (shdr_array[i].sh_type == SHT_SYMTAB)
-//         {
-//             return &shdr_array[i];
-//         }
-//         
-//     }
-//     return NULL;
-// }
-// 
-// u32 calcContentSize(Elf32_Shdr *shdr_array, u32 shnum)
-// {
-//     u32 alloc_size = 0;
-// 
-//     for (u32 i = 0; i < shnum; i++)
-//     {
-//         if ((shdr_array[i].sh_flags & SHF_WRITE | SHF_ALLOC | SHF_EXECINSTR))
-//         {
-//             alloc_size += shdr_array[i].sh_size;
-//         }
-//     }
-//     
-//     return alloc_size;
-// }
-// 
-// int relocELFContent(u32 *elf)
-// {
-//     Elf32_Ehdr *ehdr = (Elf32_Ehdr *)elf;
-//     Elf32_Shdr *shdr_array = (Elf32_Shdr *)((u32)ehdr + ehdr->e_shoff);
-// 
-//     u32 e_shnum = ehdr->e_shnum;
-// 
-//     u32 alloc_size = calcContentSize(shdr_array, e_shnum);
-// 
-//     u32 *reloc_ptr = mem_alloc(alloc_size, 4);
-// 
-//     if (!reloc_ptr)
-//     {
-//         _printf("Nao foi possivel alocar memoria! %d\n", alloc_size);
-//         return -1;
-//     }
-//     
-//     Elf32_Shdr *symtab_Shdr = findSymTab(shdr_array, e_shnum);
-// 
-// 
-//     if (!symtab_Shdr)
-//     {
-//         _printf("Nao foi possivel encontrar symtab!\n");
-//         return -1;
-//     }
-// 
-//     Elf32_Sym *sym_array = (Elf32_Sym *)((u32)ehdr + symtab_Shdr->sh_offset);
-// 
-//     for (u32 i = 0; i < e_shnum; i++)
-//     {
-//         Elf32_Shdr *shdr = &shdr_array[i];
-// 
-//         if (shdr->sh_type == SHT_PROGBITS)
-//         {
-//             shdr->sh_addr += (u32)reloc_ptr;
-//         }
-//         
-//         if (shdr->sh_type == SHT_RELA)
-//         {
-//             Elf32_Shdr *reloc_target_shdr = &shdr_array[shdr->sh_info];
-//             
-//             if (reloc_target_shdr->sh_type != 1 || !(reloc_target_shdr->sh_flags & (SHF_WRITE | SHF_ALLOC | SHF_EXECINSTR)))
-//                 continue;
-// 
-//             Elf32_Rela *rela_array = (Elf32_Rela *)((u32)ehdr + shdr->sh_offset);
-//             u32 nRela = (u32)(shdr->sh_size /  shdr->sh_entsize);
-// 
-//             for (u32 j = 0; j < nRela; j++)
-//             {
-//                 Elf32_Rela *rela = &rela_array[j];
-//                 u32 r_info = rela->r_info;
-//                 Elf32_Sym *sym = &sym_array[ELF32_R_SYM(r_info)];
-//                 u32 symbol_value = sym->st_value;
-//                 u32 addr = symbol_value;
-// 
-//                 u32 st_type = ELF32_ST_TYPE(sym->st_info);
-// 
-//                 if (sym->st_shndx > 0 && sym->st_shndx < ehdr->e_shnum)
-//                 {
-//                     Elf32_Shdr *sym_sh = &shdr_array[sym->st_shndx];
-//                     addr += rela->r_addend + sym_sh->sh_addr;
-// 
-//                     // if (st_type == STT_SECTION)
-//                     // {
-//                     //     addr += sym_sh->sh_addralign;
-//                     // }
-//                 }
-// 
-//                 u32 *relocData = (u32 *)((u32)ehdr + reloc_target_shdr->sh_offset + rela->r_offset);
-// 
-//                 if (!applyReloc(relocData, ELF32_R_TYPE(r_info), addr))
-//                 {
-//                     _printf("Incorrect reloc type!\n");
-//                     return -1;
-//                 }
-// 
-//             }
-// 
-//             memcpy((u32 *)reloc_target_shdr->sh_addr, (u32*)((u32)ehdr + reloc_target_shdr->sh_offset), reloc_target_shdr->sh_size);
-//         }
-//     }
-// 
-//     ehdr->e_entry += (u32)reloc_ptr;
-// 
-//     return 0;
-// }
-// 
-// void sys_GameLoop(u32);
+    u32 e_shnum = ehdr->e_shnum;
+
+    u32 alloc_size = calcContentSize(shdr_array, e_shnum);
+
+    u32 *reloc_ptr = mem_alloc(alloc_size, 4);
+
+    if (!reloc_ptr)
+    {
+        _printf("Nao foi possivel alocar memoria! %d\n", alloc_size);
+        return -1;
+    }
+    
+    Elf32_Shdr *symtab_Shdr = findSymTab(shdr_array, e_shnum);
+
+
+    if (!symtab_Shdr)
+    {
+        _printf("Nao foi possivel encontrar symtab!\n");
+        return -1;
+    }
+
+    Elf32_Sym *sym_array = (Elf32_Sym *)((u32)ehdr + symtab_Shdr->sh_offset);
+
+    for (u32 i = 0; i < e_shnum; i++)
+    {
+        Elf32_Shdr *shdr = &shdr_array[i];
+
+        if (shdr->sh_type == SHT_PROGBITS)
+        {
+            shdr->sh_addr += (u32)reloc_ptr;
+        }
+        
+        if (shdr->sh_type == SHT_RELA)
+        {
+            Elf32_Shdr *reloc_target_shdr = &shdr_array[shdr->sh_info];
+            
+            if (reloc_target_shdr->sh_type != 1 || !(reloc_target_shdr->sh_flags & (SHF_WRITE | SHF_ALLOC | SHF_EXECINSTR)))
+                continue;
+
+            Elf32_Rela *rela_array = (Elf32_Rela *)((u32)ehdr + shdr->sh_offset);
+            u32 nRela = (u32)(shdr->sh_size /  shdr->sh_entsize);
+
+            for (u32 j = 0; j < nRela; j++)
+            {
+                Elf32_Rela *rela = &rela_array[j];
+                u32 r_info = rela->r_info;
+                Elf32_Sym *sym = &sym_array[ELF32_R_SYM(r_info)];
+                u32 symbol_value = sym->st_value;
+                u32 addr = symbol_value;
+
+                u32 st_type = ELF32_ST_TYPE(sym->st_info);
+
+                if (sym->st_shndx > 0 && sym->st_shndx < ehdr->e_shnum)
+                {
+                    Elf32_Shdr *sym_sh = &shdr_array[sym->st_shndx];
+                    addr += rela->r_addend + sym_sh->sh_addr;
+
+                    // if (st_type == STT_SECTION)
+                    // {
+                    //     addr += sym_sh->sh_addralign;
+                    // }
+                }
+
+                u32 *relocData = (u32 *)((u32)ehdr + reloc_target_shdr->sh_offset + rela->r_offset);
+
+                if (!applyReloc(relocData, ELF32_R_TYPE(r_info), addr))
+                {
+                    _printf("Incorrect reloc type!\n");
+                    return -1;
+                }
+
+            }
+
+            memcpy((u32 *)reloc_target_shdr->sh_addr, (u32*)((u32)ehdr + reloc_target_shdr->sh_offset), reloc_target_shdr->sh_size);
+        }
+    }
+
+    ehdr->e_entry += (u32)reloc_ptr;
+
+    return 0;
+}
+
+void createPluginHeapZone()
+{
+    pluginHeap = Mem_NewHeapZone(PLUGIN_HEAP_START, PLUGIN_HEAP_SIZE, "PLUGIN", 0x40);
+}
+
+void sys_GameLoop(u32);
 
 // void main(u32 a0)
 // {
@@ -913,30 +566,9 @@ erl_record_t *load_erl(char *fname)
 //     sys_GameLoop(a0);
 // }
 
-void _main(uint a0)
-{
-
-    createPluginHeapZone();
-    Mem_SetCurrentHeapZone(Mem__pRootHeap);
-    PrintHeapStats();
-    load_global_symbols();
-
-    Mem_SetCurrentHeapZone(pluginHeap);
-
-    load_erl("host0:GOWPLUGIN.ERL");
-
-    destroy_global_symbols();
-
-    Mem_SetCurrentHeapZone(Mem__pRootHeap);
-
-    PrintHeapStats();
-
-    sys_GameLoop(a0);
-}
-
 void injectPatches()
 {
-    RedirectCall(0x138DC0, _main);
+    RedirectCall(0x21FD6C, loop);
 }
 
 void INVOKER()
