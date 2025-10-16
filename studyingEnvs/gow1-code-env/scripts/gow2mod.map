@@ -1,3 +1,13 @@
+Archive member included to satisfy reference by file (symbol)
+
+C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+                              ./src/enemymeter.o (__extendsfdf2)
+C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+                              C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o) (__make_dp)
+C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+                              C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o) (__unpack_f)
+C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+                              C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o) (__pack_d)
 
 Discarded input sections
 
@@ -11,6 +21,56 @@ Discarded input sections
                 0x00000000       0x18 ./src/injector.o
  .gnu.attributes
                 0x00000000       0x10 ./src/injector.o
+ .reginfo       0x00000000       0x18 ./src/menu.o
+ .MIPS.abiflags
+                0x00000000       0x18 ./src/menu.o
+ .gnu.attributes
+                0x00000000       0x10 ./src/menu.o
+ .reginfo       0x00000000       0x18 ./src/enemymeter.o
+ .MIPS.abiflags
+                0x00000000       0x18 ./src/enemymeter.o
+ .gnu.attributes
+                0x00000000       0x10 ./src/enemymeter.o
+ .reginfo       0x00000000       0x18 ./src/message.o
+ .MIPS.abiflags
+                0x00000000       0x18 ./src/message.o
+ .gnu.attributes
+                0x00000000       0x10 ./src/message.o
+ .reginfo       0x00000000       0x18 ./src/hooks/gamestate.o
+ .MIPS.abiflags
+                0x00000000       0x18 ./src/hooks/gamestate.o
+ .gnu.attributes
+                0x00000000       0x10 ./src/hooks/gamestate.o
+ .reginfo       0x00000000       0x18 ./src/hooks/gosoldier.o
+ .MIPS.abiflags
+                0x00000000       0x18 ./src/hooks/gosoldier.o
+ .gnu.attributes
+                0x00000000       0x10 ./src/hooks/gosoldier.o
+ .reginfo       0x00000000       0x18 ./src/hooks/gocreature.o
+ .MIPS.abiflags
+                0x00000000       0x18 ./src/hooks/gocreature.o
+ .gnu.attributes
+                0x00000000       0x10 ./src/hooks/gocreature.o
+ .reginfo       0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .MIPS.abiflags
+                0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .gnu.attributes
+                0x00000000       0x10 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .reginfo       0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .MIPS.abiflags
+                0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .gnu.attributes
+                0x00000000       0x10 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .reginfo       0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .MIPS.abiflags
+                0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .gnu.attributes
+                0x00000000       0x10 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .reginfo       0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+ .MIPS.abiflags
+                0x00000000       0x18 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+ .gnu.attributes
+                0x00000000       0x10 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
 
 Memory Configuration
 
@@ -21,11 +81,16 @@ Linker script and memory map
 
 LOAD ./src/main.o
 LOAD ./src/injector.o
+LOAD ./src/menu.o
+LOAD ./src/enemymeter.o
+LOAD ./src/message.o
+LOAD ./src/hooks/gamestate.o
+LOAD ./src/hooks/gosoldier.o
+LOAD ./src/hooks/gocreature.o
 LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0/../../../../mips64r5900el-ps2-elf/lib\libm_nano.a
 START GROUP
 END GROUP
 LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a
-                0x000d0000                        BASE_ADDRESS = 0xd0000
                 [!provide]                        PROVIDE (start = 0x100008)
                 [!provide]                        PROVIDE (_root = 0x1001d8)
                 [!provide]                        PROVIDE (collisionMasterContext_LineTest = 0x11e190)
@@ -53,9 +118,9 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (Mem_PoolNewPtr = 0x13da10)
                 [!provide]                        PROVIDE (Mem_PoolFreePtr = 0x13db18)
                 [!provide]                        PROVIDE (Mem_FreePtr = 0x13db98)
-                [!provide]                        PROVIDE (Mem_NewPtr = 0x13dc78)
+                0x0013dc78                        PROVIDE (Mem_NewPtr = 0x13dc78)
                 [!provide]                        PROVIDE (Mem_NewPtrHigh = 0x13de28)
-                [!provide]                        PROVIDE (Mem_GetCurrentHeapZone = 0x13e090)
+                0x0013e090                        PROVIDE (Mem_GetCurrentHeapZone = 0x13e090)
                 [!provide]                        PROVIDE (Mem_SetCurrentHeapZone = 0x13e0c0)
                 [!provide]                        PROVIDE (Mem_PushCurrentHeapZone = 0x13e158)
                 [!provide]                        PROVIDE (Mem_PopCurrentHeapZone = 0x13e180)
@@ -81,7 +146,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (PopInt = 0x1445d0)
                 [!provide]                        PROVIDE (PopString = 0x144628)
                 [!provide]                        PROVIDE (F_MovieInstance_GetHandler = 0x144730)
-                [!provide]                        PROVIDE (GetSubSI = 0x1447e0)
+                0x001447e0                        PROVIDE (GetSubSI = 0x1447e0)
                 [!provide]                        PROVIDE (GetTargetSI = 0x1448a0)
                 [!provide]                        PROVIDE (HandleTargetPrefix = 0x1449d0)
                 [!provide]                        PROVIDE (GetVariable = 0x144a20)
@@ -204,7 +269,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (Entity_Update = 0x1a7380)
                 [!provide]                        PROVIDE (Entity_Reset = 0x1a7ef0)
                 [!provide]                        PROVIDE (Entity_GetDynExpr = 0x1a8338)
-                [!provide]                        PROVIDE (Entity_SendEvent = 0x1a8580)
+                0x001a8580                        PROVIDE (Entity_SendEvent = 0x1a8580)
                 [!provide]                        PROVIDE (Entity_CreateEnemy = 0x1a8ba0)
                 [!provide]                        PROVIDE (Entity_AddToCreationList = 0x1a8ef0)
                 [!provide]                        PROVIDE (Entity_SendEvent = 0x1a9058)
@@ -232,7 +297,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (Ent_EventTransmitter_StateNotify = 0x1ab798)
                 [!provide]                        PROVIDE (Entity_CreatePlayer = 0x1abb00)
                 [!provide]                        PROVIDE (Ent_PlayerCreator_StateNotify = 0x1abd78)
-                [!provide]                        PROVIDE (Ent_EnemyCreator_StateNotify = 0x1abf18)
+                0x001abf18                        PROVIDE (Ent_EnemyCreator_StateNotify = 0x1abf18)
                 [!provide]                        PROVIDE (Ent_ObjectCreator_StateNotify = 0x1ac358)
                 [!provide]                        PROVIDE (Ent_ObjectCreator_HandleEvent = 0x1ac560)
                 [!provide]                        PROVIDE (Ent_ObjectCreator_Activate = 0x1ac590)
@@ -271,19 +336,19 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (FlashInterface_LookupVariable = 0x1b7f08)
                 [!provide]                        PROVIDE (FlashInterface_GetVariable = 0x1b7f50)
                 [!provide]                        PROVIDE (FlashInterface_SetVariable = 0x1b8050)
-                [!provide]                        PROVIDE (FlashInterface_PlaySound = 0x1b8198)
-                [!provide]                        PROVIDE (FlashInterface_SimKeyEvent = 0x1b8418)
+                0x001b8198                        PROVIDE (FlashInterface_PlaySound = 0x1b8198)
+                0x001b8418                        PROVIDE (FlashInterface_SimKeyEvent = 0x1b8418)
                 [!provide]                        PROVIDE (FlashInterface_MsgMenuCheck = 0x1b8478)
                 [!provide]                        PROVIDE (FlashInterface_PerFrame = 0x1b8830)
-                [!provide]                        PROVIDE (FlashInterface_CancelMsg = 0x1b8968)
+                0x001b8968                        PROVIDE (FlashInterface_CancelMsg = 0x1b8968)
                 [!provide]                        PROVIDE (FlashInterface_FindMsg = 0x1b8ce0)
                 [!provide]                        PROVIDE (FlashInterface_GetMsgLine = 0x1b8d88)
                 [!provide]                        PROVIDE (FlashInterface_DoMsg = 0x1b8df0)
                 [!provide]                        PROVIDE (FlashInterface_DoMsgPage = 0x1b8e88)
-                [!provide]                        PROVIDE (FlashInterface_TellFlashTypeOn = 0x1b92b8)
+                0x001b92b8                        PROVIDE (FlashInterface_TellFlashTypeOn = 0x1b92b8)
                 [!provide]                        PROVIDE (FlashInterface_StopFlashTypeOn = 0x1b9338)
                 [!provide]                        PROVIDE (FlashInterface_DoMenu = 0x1b9358)
-                [!provide]                        PROVIDE (FlashInterface_MsgMenuPause = 0x1b9718)
+                0x001b9718                        PROVIDE (FlashInterface_MsgMenuPause = 0x1b9718)
                 [!provide]                        PROVIDE (FlashInterface_DoCommend = 0x1b9780)
                 [!provide]                        PROVIDE (FlashInterface_HitCounter = 0x1b9828)
                 [!provide]                        PROVIDE (FlashInterface_ClearHUD = 0x1b9908)
@@ -338,7 +403,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (goPlayer_HandlePlayerControls = 0x1d7410)
                 [!provide]                        PROVIDE (goPlayer_HandleDebugPrinting = 0x1d7830)
                 [!provide]                        PROVIDE (goPlayer_HandleTargeting = 0x1d78b0)
-                [!provide]                        PROVIDE (goPlayer_AcquireAllPickups = 0x1d89f0)
+                0x001d89f0                        PROVIDE (goPlayer_AcquireAllPickups = 0x1d89f0)
                 [!provide]                        PROVIDE (goPlayer_IncHealthMeterLevel = 0x1d8be8)
                 [!provide]                        PROVIDE (goPlayer_IncMagicMeterLevel = 0x1d8c68)
                 [!provide]                        PROVIDE (goPlayer_HandleLowHealthSound = 0x1daf50)
@@ -358,7 +423,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (goCreature_ResetPhysicalDampingSystem = 0x1dfe00)
                 [!provide]                        PROVIDE (goCreature_Warp = 0x1dfe58)
                 [!provide]                        PROVIDE (goCreature_EnableCircle = 0x1e0870)
-                [!provide]                        PROVIDE (goCreature_SetHitPoints = 0x1e0a80)
+                0x001e0a80                        PROVIDE (goCreature_SetHitPoints = 0x1e0a80)
                 [!provide]                        PROVIDE (goCreature_SubtractHitPoints = 0x1e0a98)
                 [!provide]                        PROVIDE (goCreature_AddHitPoints = 0x1e0ba0)
                 [!provide]                        PROVIDE (goCreature_SetHaveAttached = 0x1e0c38)
@@ -380,7 +445,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (goSoldier_UpdateFreezing = 0x1e8088)
                 [!provide]                        PROVIDE (goSoldier_SetMode_Falling = 0x1e8478)
                 [!provide]                        PROVIDE (goSoldier_SetMode_Jumping = 0x1e8d00)
-                [!provide]                        PROVIDE (goSoldier_SetMode_DoubleJumping = 0x1e8e08)
+                0x001e8e08                        PROVIDE (goSoldier_SetMode_DoubleJumping = 0x1e8e08)
                 [!provide]                        PROVIDE (goSoldier_HandleJumping = 0x1e8fb0)
                 [!provide]                        PROVIDE (goSoldier_DoStrafeMotion = 0x1ea310)
                 [!provide]                        PROVIDE (goSoldier_DoNormalMotion = 0x1ea820)
@@ -396,8 +461,8 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (tMoveSystem_MoveCollisionCallback = 0x2025a8)
                 [!provide]                        PROVIDE (tMoveSystem_ApplyHit = 0x202718)
                 [!provide]                        PROVIDE (tMoveSystem_HandleCollision = 0x202f48)
-                [!provide]                        PROVIDE (tMoveSystem_GetTargetCreature = 0x207078)
-                [!provide]                        PROVIDE (tMoveSystem_GetTargetID = 0x207178)
+                0x00207078                        PROVIDE (tMoveSystem_GetTargetCreature = 0x207078)
+                0x00207178                        PROVIDE (tMoveSystem_GetTargetID = 0x207178)
                 [!provide]                        PROVIDE (tMoveSystem_GetTargetHealth = 0x2071e8)
                 [!provide]                        PROVIDE (tMoveSystem_DoCancelAllMoves = 0x208d78)
                 [!provide]                        PROVIDE (tMoveSystem_IsDoingMoveWithScriptAction = 0x2092e8)
@@ -428,7 +493,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (goRopeSkinned_InitializeSegments = 0x216428)
                 [!provide]                        PROVIDE (nullsub_8 = 0x217fb0)
                 [!provide]                        PROVIDE (nullsub_36 = 0x21c360)
-                [!provide]                        PROVIDE (GameRegistration = 0x21c788)
+                0x0021c788                        PROVIDE (GameRegistration = 0x21c788)
                 [!provide]                        PROVIDE (GameState_GoToDeadMenu = 0x21cbb8)
                 [!provide]                        PROVIDE (GameState_GoToFailedMenu = 0x21cc50)
                 [!provide]                        PROVIDE (GameState_GoToSaveMenu = 0x21ccf8)
@@ -439,12 +504,12 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (GameState_ClearPromptButton = 0x21cf18)
                 0x0021cf68                        PROVIDE (GameState_Update = 0x21cf68)
                 [!provide]                        PROVIDE (GameState_CheckPause = 0x21d5f8)
-                [!provide]                        PROVIDE (GameState_Restart = 0x21d808)
+                0x0021d808                        PROVIDE (GameState_Restart = 0x21d808)
                 [!provide]                        PROVIDE (GameState_Quit = 0x21d868)
                 [!provide]                        PROVIDE (GameState_ShowLoadScreen = 0x21d888)
                 [!provide]                        PROVIDE (GameState_DoPending = 0x21d958)
                 [!provide]                        PROVIDE (GameState_ClearPending = 0x21dae0)
-                [!provide]                        PROVIDE (GameState_AddPending = 0x21db60)
+                0x0021db60                        PROVIDE (GameState_AddPending = 0x21db60)
                 [!provide]                        PROVIDE (GameState_NextPending = 0x21dc48)
                 [!provide]                        PROVIDE (GameState_DoPromptButton = 0x21dd40)
                 [!provide]                        PROVIDE (GameState_ShellStuff_NewGame_Update = 0x21e410)
@@ -455,7 +520,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (GameState_GoToLoadingLevel = 0x21f060)
                 [!provide]                        PROVIDE (GameState_LoadingLevel = 0x21f180)
                 [!provide]                        PROVIDE (GameState_PrepareForPauseOrPSM = 0x21f368)
-                [!provide]                        PROVIDE (GameState_Playing = 0x21f3c8)
+                0x0021f3c8                        PROVIDE (GameState_Playing = 0x21f3c8)
                 [!provide]                        PROVIDE (GameState_PauseMenu = 0x21f638)
                 [!provide]                        PROVIDE (GameState_PSMMenu = 0x21f730)
                 [!provide]                        PROVIDE (GameState_SaveMenu = 0x21f918)
@@ -531,16 +596,16 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (dpmul = 0x2849b8)
                 [!provide]                        PROVIDE (dpcmp = 0x284ee0)
                 [!provide]                        PROVIDE (nullsub_33 = 0x285cf0)
-                [!provide]                        PROVIDE (memcpy = 0x289294)
+                0x00289294                        PROVIDE (memcpy = 0x289294)
                 [!provide]                        PROVIDE (memset = 0x28943c)
                 [!provide]                        PROVIDE (strchr = 0x289624)
                 [!provide]                        PROVIDE (strcmp = 0x2897c4)
-                [!provide]                        PROVIDE (strcpy = 0x289910)
+                0x00289910                        PROVIDE (strcpy = 0x289910)
                 [!provide]                        PROVIDE (strlen = 0x289a28)
                 [!provide]                        PROVIDE (strncmp = 0x289b70)
                 [!provide]                        PROVIDE (strncpy = 0x289d38)
-                0x0028a0c8                        PROVIDE (_printf = 0x28a0c8)
-                [!provide]                        PROVIDE (sprintf = 0x28a2b0)
+                0x0028a0c8                        PROVIDE (printf = 0x28a0c8)
+                0x0028a2b0                        PROVIDE (sprintf = 0x28a2b0)
                 [!provide]                        PROVIDE (atoi = 0x28b170)
                 [!provide]                        PROVIDE (_mbtowc_r = 0x28b308)
                 [!provide]                        PROVIDE (strcasecmp = 0x28d270)
@@ -553,22 +618,22 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (strtol = 0x291078)
                 [!provide]                        PROVIDE (localeconv = 0x291108)
                 [!provide]                        PROVIDE (memchr = 0x291130)
-                0x00293c20                        PROVIDE (CreateSema = 0x293c20)
-                0x00293c30                        PROVIDE (DeleteSema = 0x293c30)
-                0x00293c40                        PROVIDE (SignalSema = 0x293c40)
-                0x00293c60                        PROVIDE (WaitSema = 0x293c60)
-                0x00293ea0                        PROVIDE (FlushCache = 0x293ea0)
+                [!provide]                        PROVIDE (CreateSema = 0x293c20)
+                [!provide]                        PROVIDE (DeleteSema = 0x293c30)
+                [!provide]                        PROVIDE (SignalSema = 0x293c40)
+                [!provide]                        PROVIDE (WaitSema = 0x293c60)
+                [!provide]                        PROVIDE (FlushCache = 0x293ea0)
                 [!provide]                        PROVIDE (ftoi = 0x295300)
                 [!provide]                        PROVIDE (printfloat = 0x295390)
                 [!provide]                        PROVIDE (_sceSnprintf_pf = 0x296328)
                 [!provide]                        PROVIDE (sceSifWriteBackDCache = 0x296b98)
                 [!provide]                        PROVIDE (sceSifInitRpc = 0x296c48)
-                0x00297740                        PROVIDE (new_iob = 0x297740)
-                0x002977c8                        PROVIDE (sceFsSifCallRpc = 0x2977c8)
-                0x002978b8                        PROVIDE (get_iob = 0x2978b8)
-                0x00297d38                        PROVIDE (_sceFsWaitS = 0x297d38)
-                0x00297d68                        PROVIDE (_sceFsSigSema = 0x297d68)
-                0x00297dc0                        PROVIDE (sceFsInit = 0x297dc0)
+                [!provide]                        PROVIDE (new_iob = 0x297740)
+                [!provide]                        PROVIDE (sceFsSifCallRpc = 0x2977c8)
+                [!provide]                        PROVIDE (get_iob = 0x2978b8)
+                [!provide]                        PROVIDE (_sceFsWaitS = 0x297d38)
+                [!provide]                        PROVIDE (_sceFsSigSema = 0x297d68)
+                [!provide]                        PROVIDE (sceFsInit = 0x297dc0)
                 [!provide]                        PROVIDE (_fs_version = 0x297fc8)
                 [!provide]                        PROVIDE (sceOpen = 0x298090)
                 [!provide]                        PROVIDE (sceClose = 0x298320)
@@ -606,9 +671,9 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (Entity_curEntity = 0x29cac8)
                 [!provide]                        PROVIDE (Entity_restoringWads = 0x29cae0)
                 [!provide]                        PROVIDE (Entity_saveGameID = 0x29caec)
-                [!provide]                        PROVIDE (Entity_doCheckPoint = 0x29cb00)
+                0x0029cb00                        PROVIDE (Entity_doCheckPoint = 0x29cb00)
                 [!provide]                        PROVIDE (Entity_creatingGO = 0x29cb08)
-                [!provide]                        PROVIDE (flashInterface = 0x29cb94)
+                0x0029cb94                        PROVIDE (flashInterface = 0x29cb94)
                 [!provide]                        PROVIDE (lastFrame_34516 = 0x29cbb0)
                 [!provide]                        PROVIDE (aBonusxx = 0x29cc00)
                 [!provide]                        PROVIDE (GameWadLoader_permWadContext = 0x29cc58)
@@ -616,8 +681,8 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (GameWadLoader_pHeroHeapZone = 0x29cc70)
                 [!provide]                        PROVIDE (Global_sm_bVid480P = 0x29cc94)
                 [!provide]                        PROVIDE (Global_sm_bDeFlicker = 0x29cc98)
-                [!provide]                        PROVIDE (Global_sm_bWorldIdle = 0x29ccb4)
-                [!provide]                        PROVIDE (goPlayer_sm_pPlayer = 0x29cd58)
+                0x0029ccb4                        PROVIDE (Global_sm_bWorldIdle = 0x29ccb4)
+                0x0029cd58                        PROVIDE (goPlayer_sm_pPlayer = 0x29cd58)
                 [!provide]                        PROVIDE (goCreatureCollision_m_bInstantDeath = 0x29d2a8)
                 [!provide]                        PROVIDE (goHandleDB_sm_pHandleDB = 0x29d2ac)
                 [!provide]                        PROVIDE (a0123456789Abcd = 0x29d2d8)
@@ -640,7 +705,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (ChestJoints = 0x29e478)
                 [!provide]                        PROVIDE (firstLevel = 0x29e550)
                 [!provide]                        PROVIDE (booting = 0x29e55c)
-                [!provide]                        PROVIDE (GameState_curState = 0x29e560)
+                0x0029e560                        PROVIDE (GameState_curState = 0x29e560)
                 [!provide]                        PROVIDE (GameState_nowLoading = 0x29e574)
                 [!provide]                        PROVIDE (GameState_loadingSaveGame = 0x29e57c)
                 [!provide]                        PROVIDE (GameState_afterHeroLoadingScreen = 0x29e588)
@@ -656,8 +721,8 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (aCk01 = 0x2a3760)
                 [!provide]                        PROVIDE (a0123456789abcd = 0x2a4600)
                 [!provide]                        PROVIDE (_sceFs_q = 0x2a4ac0)
-                0x002a4b44                        PROVIDE (_fs_init = 0x2a4b44)
-                0x002a4b50                        PROVIDE (_fs_iob_semid = 0x2a4b50)
+                [!provide]                        PROVIDE (_fs_init = 0x2a4b44)
+                [!provide]                        PROVIDE (_fs_iob_semid = 0x2a4b50)
                 [!provide]                        PROVIDE (_fs_fsq_semid = 0x2a4b54)
                 0x002a5af8                        PROVIDE (g_Timer = 0x2a5af8)
                 [!provide]                        PROVIDE (g_pUserRebootBuf = 0x2a5b18)
@@ -2189,16 +2254,16 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (ent_recycleList = 0x302640)
                 [!provide]                        PROVIDE (Entity_prevPlayerPos = 0x302650)
                 [!provide]                        PROVIDE (Entity_globalMarkerCtxtList = 0x302660)
-                [!provide]                        PROVIDE (WadInfo_wiTable = 0x302668)
+                0x00302668                        PROVIDE (WadInfo_wiTable = 0x302668)
                 [!provide]                        PROVIDE (goPlayer_state = 0x302cc0)
                 [!provide]                        PROVIDE (goPlayer_sm_MTD = 0x302d50)
                 [!provide]                        PROVIDE (gT0VirtualCount = 0x303628)
                 [!provide]                        PROVIDE (pZoneStackBuffer = 0x304728)
                 [!provide]                        PROVIDE (parmIndex = 0x304f34)
-                0x00329340                        PROVIDE (_send_data = 0x329340)
-                0x00329f80                        PROVIDE (_rcv_data_rpc = 0x329f80)
+                [!provide]                        PROVIDE (_send_data = 0x329340)
+                [!provide]                        PROVIDE (_rcv_data_rpc = 0x329f80)
                 [!provide]                        PROVIDE (_iob = 0x32a840)
-                0x0032aa40                        PROVIDE (_cd = 0x32aa40)
+                [!provide]                        PROVIDE (_cd = 0x32aa40)
                 [!provide]                        PROVIDE (g_CounterBuf = 0x32afc0)
                 [!provide]                        PROVIDE (g_AlarmBuf = 0x32cfc0)
                 [!provide]                        PROVIDE (goServer__uResourceMap = 0x32ec58)
@@ -2218,39 +2283,104 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (goAI_sm_iPaths = 0x335ee0)
                 [!provide]                        PROVIDE (SaveGame_checkBuf = 0x336eb8)
                 [!provide]                        PROVIDE (_heap_size = 0x35c1a8)
-                0x00329344                        PROVIDE (DAT_329344 = 0x329344)
-                0x00329348                        PROVIDE (DAT_329348 = 0x329348)
-                0x0032934c                        PROVIDE (DAT_32934C = 0x32934c)
-                0x00329350                        PROVIDE (DAT_329350 = 0x329350)
+                [!provide]                        PROVIDE (DAT_329344 = 0x329344)
+                [!provide]                        PROVIDE (DAT_329348 = 0x329348)
+                [!provide]                        PROVIDE (DAT_32934C = 0x32934c)
+                [!provide]                        PROVIDE (DAT_329350 = 0x329350)
                 [!provide]                        PROVIDE (DAT_329354 = 0x329354)
-                0x0032974b                        PROVIDE (DAT_32974B = 0x32974b)
+                [!provide]                        PROVIDE (DAT_32974B = 0x32974b)
 
-.text           0x000d0000      0x6a4
-                0x000d0000                        _ftext = .
+.text           0x00000000     0x2954
  *(.text)
- .text          0x000d0000      0x664 ./src/main.o
-                0x000d0000                _sceCallCode
-                0x000d0178                sceDopen
-                0x000d0240                sceDread
-                0x000d0384                sceDclose
-                0x000d04cc                listdir
-                0x000d0540                loop
-                0x000d060c                injectPatches
-                0x000d0640                invoker
- .text          0x000d0664       0x38 ./src/injector.o
-                0x000d0664                RedirectCall
-                0x000d0678                WriteDword
-                0x000d0680                MakeNop
-                0x000d0688                RedirectJump
+ .text          0x00000000      0x408 ./src/main.o
+                0x00000000                ListEntities
+                0x00000140                init
+                0x0000017c                hook_statenotify
+                0x000001e4                loop
+                0x00000304                injectPatches
+                0x000003d4                _start
+ .text          0x00000408      0x100 ./src/injector.o
+                0x00000408                RedirectCall
+                0x0000044c                WriteDword
+                0x00000484                MakeNop
+                0x000004c4                RedirectJump
+ .text          0x00000508     0x1230 ./src/menu.o
+                0x00000508                initMenu
+                0x00000a10                getMenuChoice
+                0x00000a70                updateMenu
+                0x00000e78                setCurrentMenu
+                0x00000f44                stopMenu
+                0x00000fc0                changeMenu
+                0x0000101c                displayMenu
+                0x0000110c                handleMainMenuCMD
+                0x00001490                handleCostumeMenuCMD
+                0x0000160c                execMenuCMD
+                0x000016cc                injectMenuPatches
+ .text          0x00001738      0x430 ./src/enemymeter.o
+                0x00001738                enableEnemyMeter
+                0x0000188c                updateEnemyMeter
+ .text          0x00001b68      0x240 ./src/message.o
+                0x00001b68                displayMessage
+                0x00001d54                injectMessagePatches
+ .text          0x00001da8      0x1e4 ./src/hooks/gamestate.o
+                0x00001da8                hook_GameState_Playing
+                0x00001f48                injectHookGameState
+ .text          0x00001f8c       0x88 ./src/hooks/gosoldier.o
+                0x00001f8c                hook_goSoldier_SetMode_DoubleJumping
+                0x00001fd0                injectHookgoSoldier
+ .text          0x00002014       0xb8 ./src/hooks/gocreature.o
+                0x00002014                hook_goCreature_SetHitPoints
+                0x00002088                injectHookGoCreature
+ *fill*         0x000020cc        0x4 
+ .text          0x000020d0       0x40 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+                0x000020d0                __extendsfdf2
+ .text          0x00002110       0x38 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+                0x00002110                __make_dp
+ .text          0x00002148       0xe8 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+                0x00002148                __unpack_f
+ .text          0x00002230      0x1d8 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+                0x00002230                __pack_d
  *(.text.*)
  *(.gnu.linkonce.t*)
  *(.rodata)
+ .rodata        0x00002408       0x60 ./src/main.o
+ .rodata        0x00002468      0x290 ./src/menu.o
+ .rodata        0x000026f8       0x58 ./src/enemymeter.o
+ .rodata        0x00002750        0x4 ./src/message.o
  *(.data)
- .data          0x000d069c        0x0 ./src/main.o
- .data          0x000d069c        0x0 ./src/injector.o
+ .data          0x00002754        0x4 ./src/main.o
+                0x00002754                erl_id
+ .data          0x00002758        0x0 ./src/injector.o
+ .data          0x00002758       0xd0 ./src/menu.o
+                0x00002758                costume
+                0x0000275c                allow_InfiniteJump
+                0x00002760                allow_FreeCam
+                0x00002764                allow_AutoKill
+                0x00002768                allow_InfiniteHealth
+                0x0000276c                allow_InfiniteMagic
+                0x00002770                magic
+                0x00002774                camera_type
+                0x00002778                camera_hint_msg
+                0x00002788                textMenuBuffer
+ .data          0x00002828       0x14 ./src/enemymeter.o
+                0x00002828                enemyMeterString
+                0x00002838                allow_EnemyMeter
+ *fill*         0x0000283c        0x4 
+ .data          0x00002840       0xfa ./src/message.o
+                0x00002840                textMsgBuffer
+ *fill*         0x0000293a        0x6 
+ .data          0x00002940        0xc ./src/hooks/gamestate.o
+                0x00002940                last_gamepad
+                0x00002948                gamePad
+ .data          0x0000294c        0x0 ./src/hooks/gosoldier.o
+ .data          0x0000294c        0x0 ./src/hooks/gocreature.o
+ .data          0x0000294c        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .data          0x0000294c        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .data          0x0000294c        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .data          0x0000294c        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
  *(.init)
  *(.fini)
-                0x000d069c        0x8 QUAD 0x0
+                0x0000294c        0x8 QUAD 0x0
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
 
@@ -2259,16 +2389,13 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
  *(.reginfo)
  *(.gnu.attributes)
 
-.rodata         0x000d0700       0x10
+.rodata
  *(.rodata)
  *(.rodata.*)
- .rodata.str1.8
-                0x000d0700        0xc ./src/main.o
- .rodata.cst4   0x000d070c        0x4 ./src/main.o
  *(.gnu.linkonce.r*)
 
-.data           0x000d0780        0x0
-                0x000d0780                        _fdata = .
+.data           0x00002980        0x0
+                0x00002980                        _fdata = .
  *(.data)
  *(.data.*)
  *(.gnu.linkonce.d*)
@@ -2278,7 +2405,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
 
 .gcc_except_table
  *(.gcc_except_table)
-                0x000d8770                        _gp = (ALIGN (0x80) + 0x7ff0)
+                0x0000a970                        _gp = (ALIGN (0x80) + 0x7ff0)
 
 .lit4
  *(.lit4)
@@ -2290,44 +2417,147 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
  *(.sdata)
  *(.sdata.*)
  *(.gnu.linkonce.s*)
-                0x000d0780                        _edata = .
+                0x00002980                        _edata = .
                 [!provide]                        PROVIDE (edata = .)
 
-.sbss           0x000d0780        0x0
-                0x000d0780                        _fbss = .
+.sbss           0x00002980        0x0
+                0x00002980                        _fbss = .
  *(.sbss)
  *(.sbss.*)
  *(.gnu.linkonce.sb*)
  *(.scommon)
 
-.bss            0x000d0780        0x8
+.bss            0x00002980       0x24
  *(.bss)
- .bss           0x000d0780        0x8 ./src/main.o
-                0x000d0780                gamepad
-                0x000d0784                time
- .bss           0x000d0788        0x0 ./src/injector.o
+ .bss           0x00002980        0xc ./src/main.o
+                0x00002980                time
+                0x00002988                gamepad
+ .bss           0x0000298c        0x0 ./src/injector.o
+ *fill*         0x0000298c        0x4 
+ .bss           0x00002990       0x14 ./src/menu.o
+                0x00002990                menuManager
+                0x000029a0                lastChoice
+ .bss           0x000029a4        0x0 ./src/enemymeter.o
+ .bss           0x000029a4        0x0 ./src/message.o
+ .bss           0x000029a4        0x0 ./src/hooks/gamestate.o
+ .bss           0x000029a4        0x0 ./src/hooks/gosoldier.o
+ .bss           0x000029a4        0x0 ./src/hooks/gocreature.o
+ .bss           0x000029a4        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .bss           0x000029a4        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .bss           0x000029a4        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .bss           0x000029a4        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
  *(.bss.*)
  *(.gnu.linkonce.b*)
  *(COMMON)
-                0x000d0788                        _end_bss = .
-                0x000d0788                        _end = .
+                0x000029a4                        _end_bss = .
+                0x000029a4                        _end = .
                 [!provide]                        PROVIDE (end = .)
                 [!provide]                        PROVIDE (_heap_size = 0xffffffffffffffff)
                 [!provide]                        PROVIDE (_stack = 0xffffffffffffffff)
                 [!provide]                        PROVIDE (_stack_size = 0x20000)
-OUTPUT(./gowplugin.elf elf32-nlittlemips)
+OUTPUT(gowplugin.erl elf32-nlittlemips)
 
-.pdr            0x00000000      0x180
- .pdr           0x00000000      0x100 ./src/main.o
- .pdr           0x00000100       0x80 ./src/injector.o
+.pdr            0x00000000      0x460
+ .pdr           0x00000000       0xc0 ./src/main.o
+ .pdr           0x000000c0       0x80 ./src/injector.o
+ .pdr           0x00000140      0x160 ./src/menu.o
+ .pdr           0x000002a0       0x40 ./src/enemymeter.o
+ .pdr           0x000002e0       0x40 ./src/message.o
+ .pdr           0x00000320       0x40 ./src/hooks/gamestate.o
+ .pdr           0x00000360       0x40 ./src/hooks/gosoldier.o
+ .pdr           0x000003a0       0x40 ./src/hooks/gocreature.o
+ .pdr           0x000003e0       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .pdr           0x00000400       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .pdr           0x00000420       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .pdr           0x00000440       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
 
 .mdebug.abiN32  0x00000000        0x0
  .mdebug.abiN32
                 0x00000000        0x0 ./src/main.o
  .mdebug.abiN32
                 0x00000000        0x0 ./src/injector.o
+ .mdebug.abiN32
+                0x00000000        0x0 ./src/menu.o
+ .mdebug.abiN32
+                0x00000000        0x0 ./src/enemymeter.o
+ .mdebug.abiN32
+                0x00000000        0x0 ./src/message.o
+ .mdebug.abiN32
+                0x00000000        0x0 ./src/hooks/gamestate.o
+ .mdebug.abiN32
+                0x00000000        0x0 ./src/hooks/gosoldier.o
+ .mdebug.abiN32
+                0x00000000        0x0 ./src/hooks/gocreature.o
+ .mdebug.abiN32
+                0x00000000        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .mdebug.abiN32
+                0x00000000        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .mdebug.abiN32
+                0x00000000        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .mdebug.abiN32
+                0x00000000        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
 
 .comment        0x00000000       0x12
  .comment       0x00000000       0x12 ./src/main.o
                                  0x13 (size before relaxing)
  .comment       0x00000012       0x13 ./src/injector.o
+ .comment       0x00000012       0x13 ./src/menu.o
+ .comment       0x00000012       0x13 ./src/enemymeter.o
+ .comment       0x00000012       0x13 ./src/message.o
+ .comment       0x00000012       0x13 ./src/hooks/gamestate.o
+ .comment       0x00000012       0x13 ./src/hooks/gosoldier.o
+ .comment       0x00000012       0x13 ./src/hooks/gocreature.o
+ .comment       0x00000012       0x13 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .comment       0x00000012       0x13 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .comment       0x00000012       0x13 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .comment       0x00000012       0x13 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_info     0x00000000      0x9da
+ .debug_info    0x00000000      0x286 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .debug_info    0x00000286      0x22d C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .debug_info    0x000004b3      0x236 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .debug_info    0x000006e9      0x2f1 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_abbrev   0x00000000      0x58f
+ .debug_abbrev  0x00000000      0x164 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .debug_abbrev  0x00000164      0x14e C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .debug_abbrev  0x000002b2      0x135 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .debug_abbrev  0x000003e7      0x1a8 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_loc      0x00000000      0x7ad
+ .debug_loc     0x00000000       0x54 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .debug_loc     0x00000054       0xd4 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .debug_loc     0x00000128      0x21c C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .debug_loc     0x00000344      0x469 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_aranges  0x00000000       0x80
+ .debug_aranges
+                0x00000000       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .debug_aranges
+                0x00000020       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .debug_aranges
+                0x00000040       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .debug_aranges
+                0x00000060       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_line     0x00000000      0x4d4
+ .debug_line    0x00000000       0x83 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .debug_line    0x00000083       0x8c C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .debug_line    0x0000010f      0x13b C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .debug_line    0x0000024a      0x28a C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_str      0x00000000      0x2ed
+ .debug_str     0x00000000      0x2ed C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+                                0x2d4 (size before relaxing)
+ .debug_str     0x000002ed      0x295 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .debug_str     0x000002ed      0x2a7 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .debug_str     0x000002ed      0x2cb C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_frame    0x00000000       0x98
+ .debug_frame   0x00000000       0x2c C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .debug_frame   0x0000002c       0x2c C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .debug_frame   0x00000058       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .debug_frame   0x00000078       0x20 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+
+.debug_ranges   0x00000000       0x60
+ .debug_ranges  0x00000000       0x60 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)

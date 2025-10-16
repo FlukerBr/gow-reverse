@@ -28,11 +28,10 @@ ifeq ($(NODEFAULTLIBS), 1)
 endif
 
 # Include directories
-#-I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I. $(EE_INCS)
-EE_INCS := -I ./src -I ./GOW/ -I ./GOW/include -I ./src
+EE_INCS := -I ./GOW/ -I ./GOW/include -I ./src -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I. $(EE_INCS)
 
 # Optimization compiler flags
-EE_OPTFLAGS ?= -O1
+EE_OPTFLAGS ?= -O0
 
 # Warning compiler flags
 #-Wall
@@ -80,8 +79,11 @@ $(EE_BIN): $(EE_OBJS)
 	$(EE_CC) -T$(EE_LINKFILE) $(EE_OPTFLAGS) -o $(EE_BIN) $(EE_OBJS) $(EE_LDFLAGS) $(EE_LIBS) -nostartfiles
 
 $(EE_ERL): $(EE_OBJS)
-	$(EE_CC) -mno-crt0 $(EE_OPTFLAGS) -o $(EE_ERL) $(EE_OBJS) $(EE_LDFLAGS) -Wl,-r -Wl,-d
-	$(EE_STRIP) --strip-unneeded -R .mdebug.eabi64 -R .reginfo -R .comment $(EE_ERL)
+	$(EE_CC) -r -T$(EE_LINKFILE) $(EE_OPTFLAGS) -o $(EE_ERL) $(EE_OBJS) $(EE_LDFLAGS) $(EE_LIBS) -nostartfiles
+    
+# $(EE_ERL): $(EE_OBJS)
+# 	$(EE_CC) -mno-crt0 $(EE_OPTFLAGS) -o $(EE_ERL) $(EE_OBJS) $(EE_LDFLAGS) -Wl,-r -Wl,-d
+# 	$(EE_STRIP) --strip-unneeded -R .mdebug.eabi64 -R .reginfo -R .comment $(EE_ERL)
 
 $(EE_LIB): $(EE_OBJS)
 	$(EE_AR) cru $(EE_LIB) $(EE_OBJS)

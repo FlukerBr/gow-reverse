@@ -13,6 +13,6 @@ EE_LDFLAGS = -Wl,--entry=INVOKER -Wl,-Map,./scripts/gow2mod.map -Wl,'--defsym=BA
 
 all: $(EE_BIN)
 
-PS2SDK = C:/Users/allan/Desktop/tools/ps2sdk/ps2sdk
+PS2SDK = D:/0temp_torrent/ps2sdk/ps2sdk
 include $(PS2SDK)/samples/Makefile.pref
 include eemakefile.eeglobal

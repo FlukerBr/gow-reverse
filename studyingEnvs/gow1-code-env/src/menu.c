@@ -23,7 +23,7 @@ typedef struct HeapZone {
 
 HeapZone *Mem_GetCurrentHeapZone();
 void *Mem_NewPtr(HeapZone *pHZ,UINT32 byteSize,UINT32 byteAlignment);
-int _printf(const char *, ...);
+int printf(const char *, ...);
 void SaveGame_SaveCheckPoint();
 void SaveGame_LoadCheckPoint();
 char* strcpy(char *dest, const char *src);
@@ -42,7 +42,7 @@ float *magic = (float*)0x00302D24;
 
 ushort *camera_type = (ushort*)0xD09F74;
 
-uint *Entity_doCheckPoint = (uint*)0x29CB00;
+extern uint Entity_doCheckPoint;
 
 char *camera_hint_msg[] = {
     "[L2Button] Rotate left - [L1Button] Rotate right",
@@ -61,7 +61,7 @@ void initMenu()
 
     if (!menuManager.menu_list)
     {
-        _printf("***Warning: Unable to initialize menu!***");
+        printf("***Warning: Unable to initialize menu!***");
         return;
     }
 
@@ -286,7 +286,7 @@ void setCurrentMenu(ushort ID)
         }
         
     } 
-    _printf("Menu %d not found!", ID);
+    printf("Menu %d not found!", ID);
 }
 
 void stopMenu()
@@ -307,7 +307,7 @@ void displayMenu(int ID)
 {
     if (flashInterface->curMsgID != 0 || flashInterface->curMenuID > 46)
     {
-        _printf("Could not display menu %d\n", ID);
+        printf("Could not display menu %d\n", ID);
         return;
     }
     
@@ -388,10 +388,10 @@ void handleCostumeMenuCMD()
     ushort choice = (flashInterface->Menu_Choice+(menuManager.curPage * 5)) - 1;
     ushort cmd = menuManager.curMenu->menuChoices[choice].CMD;
 
-    _printf("%d %d\n", cmd, choice);
+    printf("%d %d\n", cmd, choice);
 
     // SaveGame_SaveCheckPoint();
-    *Entity_doCheckPoint = 1;
+    Entity_doCheckPoint = 1;
 
     switch (cmd)
     {

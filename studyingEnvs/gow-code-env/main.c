@@ -12,6 +12,7 @@
 #include "gohandledb.h"
 
 int kprintf(const char *, ...);
+int _printf(const char *, ...);
 int sprintf(char *str, const char *format, ...);
 uint strlen(const char *str);
 char *strcpy(char *dest, const char *src);
@@ -92,204 +93,204 @@ void PrintHeapStats()
     }
 }
 
-void StreamMovie(SCB *scb,F_Movie **p)
-{
-    ushort uVar1;
-    UINT32 UVar2;
-    F_Object *pFVar3;
-    F_Shape *pFVar4;
-    F_EditText *pFVar5;
-    F_Button *pFVar6;
-    F_Cxform *pFVar7;
-    F_Object *pFVar8;
-    F_Shape *pFVar9;
-    F_Font *pFVar10;
-    F_Text *pFVar11;
-    F_EditText *pFVar12;
-    F_Button *pFVar13;
-    F_Sprite *pFVar14;
-    F_Matrix *pFVar15;
-    F_Matrix *pFVar16;
-    F_Cxform *pFVar17;
-    char *pcVar18;
-    F_Movie *pFVar19;
-    F_Font *pFVar20;
-    F_Text *pFVar21;
-    F_Sprite *pFVar22;
-    char *pcVar23;
-    uint uVar24;
-    uint uVar25;
-    int iVar26;
-    int iVar27;
-    
-    pcVar23 = scb->mp0;
-    pFVar19 = (F_Movie *)(scb->mp + (4 - ((int)scb->mp - (int)pcVar23 & 3U) & 3));
-    *p = pFVar19;
-    pFVar8 = (F_Object *)((int)&pFVar19[1]._uID + (4 - ((uint)((int)pFVar19 + (0x5c - (int)pcVar23)) & 3) & 3));
-    pFVar3 = NULL;
-    if (pFVar19->nObjects != 0) {
-        pFVar3 = pFVar8;
-    }
-    if (pFVar19->nObjects == 888)
-    {
-        F_Object* object = Mem_NewPtr(Mem_GetCurrentHeapZone(), sizeof(F_Object) * 898, 16);
-        kprintf("%p\n", object);
-        if (object)
-        {
-            memcpy(object, pFVar3, sizeof(F_Object) * 888);
-            pFVar19->objectArray = object;
-        }
-    } else
-    {
-        pFVar19->objectArray = pFVar3;
-    }
-    
-    UVar2 = pFVar19->nShapes;
-    pFVar9 = (F_Shape *)((int)&pFVar8[pFVar19->nObjects].type + (4 - ((int)pFVar8 - (int)pcVar23 & 3U) & 3));
-    pFVar4 = pFVar9 + UVar2;
-    if (UVar2 == 0) {
-        pFVar9 = NULL;
-    }
-    scb->mp = (char *)pFVar4;
-    pFVar19->shapeArray = pFVar9;
-    uVar24 = 0;
-    if (UVar2 != 0) {
-        pFVar4 = pFVar19->shapeArray;
-        while( true ) {
-            pFVar4 = pFVar4 + uVar24;
-            uVar24 = uVar24 + 1;
-            StreamShape(scb,pFVar4);
-            if ((*p)->nShapes <= uVar24) break;
-            pFVar4 = (*p)->shapeArray;
-        }
-    }
-    pFVar19 = *p;
-    UVar2 = pFVar19->nFonts;
-    pFVar10 = (F_Font *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
-    pFVar20 = pFVar10 + UVar2;
-    if (UVar2 == 0) {
-        pFVar10 = NULL;
-    }
-    scb->mp = (char *)pFVar20;
-    pFVar19->fontArray = pFVar10;
-    uVar24 = 0;
-    if (UVar2 != 0) {
-        do {
-            uVar25 = uVar24 + 1;
-            StreamFont(scb,pFVar19->fontArray + uVar24);
-            pFVar19 = *p;
-            uVar24 = uVar25;
-        } while (uVar25 < pFVar19->nFonts);
-    }
-    pFVar19 = *p;
-    UVar2 = pFVar19->nTexts;
-    pFVar11 = (F_Text *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
-    pFVar21 = pFVar11 + UVar2;
-    if (UVar2 == 0) {
-        pFVar11 = NULL;
-    }
-    scb->mp = (char *)pFVar21;
-    pFVar19->textArray = pFVar11;
-    uVar24 = 0;
-    if (UVar2 != 0) {
-        do {
-            uVar25 = uVar24 + 1;
-            StreamText(scb,pFVar19->textArray + uVar24);
-            pFVar19 = *p;
-            uVar24 = uVar25;
-        } while (uVar25 < pFVar19->nTexts);
-    }
-    pcVar23 = scb->mp0;
-    pFVar19 = *p;
-    pFVar12 = (F_EditText *)(scb->mp + (4 - ((int)scb->mp - (int)pcVar23 & 3U) & 3));
-    pFVar5 = NULL;
-    if (pFVar19->nEditTexts != 0) {
-        pFVar5 = pFVar12;
-    }
-    if (pFVar19->nEditTexts == 296)
-    {
-        F_EditText *editText = Mem_NewPtr(Mem_GetCurrentHeapZone(), sizeof(F_EditText) * 306, 16);
-        kprintf("%p\n", editText);
-        if (editText)
-        {
-            memcpy(editText, pFVar5, sizeof(F_EditText) * 296);
-            pFVar19->editTextArray = editText;
-        }
-    } else
-    {
-        kprintf("%d\n", pFVar19->nEditTexts);
-        pFVar19->editTextArray = pFVar5;
-    }
-
-    UVar2 = pFVar19->nButtons;
-    pFVar13 = (F_Button *)((int)&pFVar12[pFVar19->nEditTexts].variableID + (4 - ((int)pFVar12 - (int)pcVar23 & 3U) & 3));
-    pFVar6 = pFVar13 + UVar2;
-    if (UVar2 == 0) {
-        pFVar13 = NULL;
-    }
-    scb->mp = (char *)pFVar6;
-    pFVar19->buttonArray = pFVar13;
-    uVar24 = 0;
-    if (UVar2 != 0) {
-        do {
-            uVar25 = uVar24 + 1;
-            StreamButton(scb,pFVar19->buttonArray + uVar24);
-            pFVar19 = *p;
-            uVar24 = uVar25;
-        } while (uVar25 < pFVar19->nButtons);
-    }
-    pFVar19 = *p;
-    UVar2 = pFVar19->nSprites;
-    pFVar14 = (F_Sprite *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
-    pFVar22 = pFVar14 + UVar2;
-    if (UVar2 == 0) {
-        pFVar14 = NULL;
-    }
-    scb->mp = (char *)pFVar22;
-    pFVar19->spriteArray = pFVar14;
-    uVar24 = 0;
-    if (UVar2 != 0) {
-        do {
-            uVar25 = uVar24 + 1;
-            StreamSprite(scb,pFVar19->spriteArray + uVar24);
-            pFVar19 = *p;
-            uVar24 = uVar25;
-        } while (uVar25 < pFVar19->nSprites);
-    }
-    pFVar14 = (F_Sprite *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
-    (*p)->rootSprite = pFVar14;
-    scb->mp = (char *)(pFVar14 + 1);
-    iVar26 = 0;
-    do {
-        iVar27 = iVar26 + 1;
-        StreamSprite(scb,(*p)->rootSprite + iVar26);
-        iVar26 = iVar27;
-    } while (iVar27 == 0);
-    pcVar23 = scb->mp0;
-    pFVar19 = *p;
-    pFVar15 = (F_Matrix *)(scb->mp + (4 - ((int)scb->mp - (int)pcVar23 & 3U) & 3));
-    pFVar16 = pFVar15;
-    if (pFVar19->nMatrices == 0) {
-        pFVar16 = NULL;
-    }
-    pFVar19->matrixArray = pFVar16;
-    pFVar17 = (F_Cxform *)((int)&pFVar15[(ushort)pFVar19->nMatrices].a + (4 - ((int)pFVar15 - (int)pcVar23 & 3U) & 3));
-    pFVar7 = NULL;
-    if (pFVar19->nCxforms != 0) {
-        pFVar7 = pFVar17;
-    }
-    pFVar19->cxformArray = pFVar7;
-    uVar1 = pFVar19->nameArraySize;
-    pcVar18 = (char *)((int)&pFVar17[(ushort)pFVar19->nCxforms].mulr + (4 - ((int)pFVar17 - (int)pcVar23 & 3U) & 3));
-    pcVar23 = NULL;
-    if (uVar1 != 0) {
-        pcVar23 = pcVar18;
-    }
-    scb->mp = pcVar18;
-    pFVar19->nameArray = pcVar23;
-    scb->mp = scb->mp + uVar1;
-    return;
-}
+// void StreamMovie(SCB *scb,F_Movie **p)
+// {
+//     ushort uVar1;
+//     UINT32 UVar2;
+//     F_Object *pFVar3;
+//     F_Shape *pFVar4;
+//     F_EditText *pFVar5;
+//     F_Button *pFVar6;
+//     F_Cxform *pFVar7;
+//     F_Object *pFVar8;
+//     F_Shape *pFVar9;
+//     F_Font *pFVar10;
+//     F_Text *pFVar11;
+//     F_EditText *pFVar12;
+//     F_Button *pFVar13;
+//     F_Sprite *pFVar14;
+//     F_Matrix *pFVar15;
+//     F_Matrix *pFVar16;
+//     F_Cxform *pFVar17;
+//     char *pcVar18;
+//     F_Movie *pFVar19;
+//     F_Font *pFVar20;
+//     F_Text *pFVar21;
+//     F_Sprite *pFVar22;
+//     char *pcVar23;
+//     uint uVar24;
+//     uint uVar25;
+//     int iVar26;
+//     int iVar27;
+//     
+//     pcVar23 = scb->mp0;
+//     pFVar19 = (F_Movie *)(scb->mp + (4 - ((int)scb->mp - (int)pcVar23 & 3U) & 3));
+//     *p = pFVar19;
+//     pFVar8 = (F_Object *)((int)&pFVar19[1]._uID + (4 - ((uint)((int)pFVar19 + (0x5c - (int)pcVar23)) & 3) & 3));
+//     pFVar3 = NULL;
+//     if (pFVar19->nObjects != 0) {
+//         pFVar3 = pFVar8;
+//     }
+//     if (pFVar19->nObjects == 888)
+//     {
+//         F_Object* object = Mem_NewPtr(Mem_GetCurrentHeapZone(), sizeof(F_Object) * 898, 16);
+//         kprintf("%p\n", object);
+//         if (object)
+//         {
+//             memcpy(object, pFVar3, sizeof(F_Object) * 888);
+//             pFVar19->objectArray = object;
+//         }
+//     } else
+//     {
+//         pFVar19->objectArray = pFVar3;
+//     }
+//     
+//     UVar2 = pFVar19->nShapes;
+//     pFVar9 = (F_Shape *)((int)&pFVar8[pFVar19->nObjects].type + (4 - ((int)pFVar8 - (int)pcVar23 & 3U) & 3));
+//     pFVar4 = pFVar9 + UVar2;
+//     if (UVar2 == 0) {
+//         pFVar9 = NULL;
+//     }
+//     scb->mp = (char *)pFVar4;
+//     pFVar19->shapeArray = pFVar9;
+//     uVar24 = 0;
+//     if (UVar2 != 0) {
+//         pFVar4 = pFVar19->shapeArray;
+//         while( true ) {
+//             pFVar4 = pFVar4 + uVar24;
+//             uVar24 = uVar24 + 1;
+//             StreamShape(scb,pFVar4);
+//             if ((*p)->nShapes <= uVar24) break;
+//             pFVar4 = (*p)->shapeArray;
+//         }
+//     }
+//     pFVar19 = *p;
+//     UVar2 = pFVar19->nFonts;
+//     pFVar10 = (F_Font *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
+//     pFVar20 = pFVar10 + UVar2;
+//     if (UVar2 == 0) {
+//         pFVar10 = NULL;
+//     }
+//     scb->mp = (char *)pFVar20;
+//     pFVar19->fontArray = pFVar10;
+//     uVar24 = 0;
+//     if (UVar2 != 0) {
+//         do {
+//             uVar25 = uVar24 + 1;
+//             StreamFont(scb,pFVar19->fontArray + uVar24);
+//             pFVar19 = *p;
+//             uVar24 = uVar25;
+//         } while (uVar25 < pFVar19->nFonts);
+//     }
+//     pFVar19 = *p;
+//     UVar2 = pFVar19->nTexts;
+//     pFVar11 = (F_Text *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
+//     pFVar21 = pFVar11 + UVar2;
+//     if (UVar2 == 0) {
+//         pFVar11 = NULL;
+//     }
+//     scb->mp = (char *)pFVar21;
+//     pFVar19->textArray = pFVar11;
+//     uVar24 = 0;
+//     if (UVar2 != 0) {
+//         do {
+//             uVar25 = uVar24 + 1;
+//             StreamText(scb,pFVar19->textArray + uVar24);
+//             pFVar19 = *p;
+//             uVar24 = uVar25;
+//         } while (uVar25 < pFVar19->nTexts);
+//     }
+//     pcVar23 = scb->mp0;
+//     pFVar19 = *p;
+//     pFVar12 = (F_EditText *)(scb->mp + (4 - ((int)scb->mp - (int)pcVar23 & 3U) & 3));
+//     pFVar5 = NULL;
+//     if (pFVar19->nEditTexts != 0) {
+//         pFVar5 = pFVar12;
+//     }
+//     if (pFVar19->nEditTexts == 296)
+//     {
+//         F_EditText *editText = Mem_NewPtr(Mem_GetCurrentHeapZone(), sizeof(F_EditText) * 306, 16);
+//         kprintf("%p\n", editText);
+//         if (editText)
+//         {
+//             memcpy(editText, pFVar5, sizeof(F_EditText) * 296);
+//             pFVar19->editTextArray = editText;
+//         }
+//     } else
+//     {
+//         kprintf("%d\n", pFVar19->nEditTexts);
+//         pFVar19->editTextArray = pFVar5;
+//     }
+// 
+//     UVar2 = pFVar19->nButtons;
+//     pFVar13 = (F_Button *)((int)&pFVar12[pFVar19->nEditTexts].variableID + (4 - ((int)pFVar12 - (int)pcVar23 & 3U) & 3));
+//     pFVar6 = pFVar13 + UVar2;
+//     if (UVar2 == 0) {
+//         pFVar13 = NULL;
+//     }
+//     scb->mp = (char *)pFVar6;
+//     pFVar19->buttonArray = pFVar13;
+//     uVar24 = 0;
+//     if (UVar2 != 0) {
+//         do {
+//             uVar25 = uVar24 + 1;
+//             StreamButton(scb,pFVar19->buttonArray + uVar24);
+//             pFVar19 = *p;
+//             uVar24 = uVar25;
+//         } while (uVar25 < pFVar19->nButtons);
+//     }
+//     pFVar19 = *p;
+//     UVar2 = pFVar19->nSprites;
+//     pFVar14 = (F_Sprite *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
+//     pFVar22 = pFVar14 + UVar2;
+//     if (UVar2 == 0) {
+//         pFVar14 = NULL;
+//     }
+//     scb->mp = (char *)pFVar22;
+//     pFVar19->spriteArray = pFVar14;
+//     uVar24 = 0;
+//     if (UVar2 != 0) {
+//         do {
+//             uVar25 = uVar24 + 1;
+//             StreamSprite(scb,pFVar19->spriteArray + uVar24);
+//             pFVar19 = *p;
+//             uVar24 = uVar25;
+//         } while (uVar25 < pFVar19->nSprites);
+//     }
+//     pFVar14 = (F_Sprite *)(scb->mp + (-((int)scb->mp - (int)scb->mp0 & 3U) & 3));
+//     (*p)->rootSprite = pFVar14;
+//     scb->mp = (char *)(pFVar14 + 1);
+//     iVar26 = 0;
+//     do {
+//         iVar27 = iVar26 + 1;
+//         StreamSprite(scb,(*p)->rootSprite + iVar26);
+//         iVar26 = iVar27;
+//     } while (iVar27 == 0);
+//     pcVar23 = scb->mp0;
+//     pFVar19 = *p;
+//     pFVar15 = (F_Matrix *)(scb->mp + (4 - ((int)scb->mp - (int)pcVar23 & 3U) & 3));
+//     pFVar16 = pFVar15;
+//     if (pFVar19->nMatrices == 0) {
+//         pFVar16 = NULL;
+//     }
+//     pFVar19->matrixArray = pFVar16;
+//     pFVar17 = (F_Cxform *)((int)&pFVar15[(ushort)pFVar19->nMatrices].a + (4 - ((int)pFVar15 - (int)pcVar23 & 3U) & 3));
+//     pFVar7 = NULL;
+//     if (pFVar19->nCxforms != 0) {
+//         pFVar7 = pFVar17;
+//     }
+//     pFVar19->cxformArray = pFVar7;
+//     uVar1 = pFVar19->nameArraySize;
+//     pcVar18 = (char *)((int)&pFVar17[(ushort)pFVar19->nCxforms].mulr + (4 - ((int)pFVar17 - (int)pcVar23 & 3U) & 3));
+//     pcVar23 = NULL;
+//     if (uVar1 != 0) {
+//         pcVar23 = pcVar18;
+//     }
+//     scb->mp = pcVar18;
+//     pFVar19->nameArray = pcVar23;
+//     scb->mp = scb->mp + uVar1;
+//     return;
+// }
 
 
 
@@ -961,14 +962,107 @@ void hook_Entity_DoMsg(int a0, float a1, int a2)
 
 char tempbuff[50] = {0};
 
-void readfile()
+int strncmp(const char *str1, const char *str2, size_t n);
+int EndsWith(const char *str, const char *suffix)
 {
-    int fd = sceOpen("cdrom0:\\SYSTEMaaaaa.CNF;1", 1);
+    if (!str || !suffix)
+        return 0;
+    size_t lenstr = strlen(str);
+    size_t lensuffix = strlen(suffix);
+    if (lensuffix >  lenstr)
+        return 0;
+    return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
+}
 
-    sceRead(fd, tempbuff, 10);
+extern int _fs_init;
+extern int _fs_iob_semid;
+extern int _fs_fsq_semid;
+
+int _sceFsWaitS(int);
+int sceFsInit();
+int _sceFsSigSema();
+uint new_iob();
+void WaitSema(int);
+void DeleteSema(int);
+int sceFsSifCallRpc(uint,uint,uint,uint,uint,uint,uint,uint, uint, uint);
+int CreateSema(uint);
+void SignalSema(int);
+uint get_iob(uint);
+extern uint _send_data;
+extern uint _rcv_data_rpc;
+extern uint _cd;
+extern uint _iob;
+
+
+char testbuf[20];
+
+void sys_GameLoop(uint);
+
+void loadELF(uint a0)
+{
+    int fd = sceOpen("host0:SYMBOLS.DAT", SCE_RDONLY);
     kprintf("%d\n", fd);
+
+    sceRead(fd, testbuf, 10);
+    testbuf[10] = '\0';
+    kprintf("%s\n", testbuf);
     sceClose(fd);
-    kprintf("%p\n", tempbuff);
+    fd = sceOpen("host0:SYMBOLS.DAT;1", SCE_RDONLY);
+    kprintf("%d\n", fd);
+
+    sceRead(fd, testbuf, 10);
+    testbuf[10] = '\0';
+    kprintf("%s\n", testbuf);
+    sceClose(fd);
+    fd = sceOpen("host0:\\SYMBOLS.DAT;1", SCE_RDONLY);
+    kprintf("%d\n", fd);
+
+    sceRead(fd, testbuf, 10);
+    testbuf[10] = '\0';
+    kprintf("%s\n", testbuf);
+    sceClose(fd);
+    fd = sceOpen("host0:\\SYMBOLS.DAT", SCE_RDONLY);
+    kprintf("%d\n", fd);
+
+    sceRead(fd, testbuf, 10);
+    testbuf[10] = '\0';
+    kprintf("%s\n", testbuf);
+    sceClose(fd);
+//     char *rootDir = "host:\\";
+//     int dirfd = sceDopen(rootDir);
+//     char fname[255] = {0};
+//     sce_dirent dirbuf;
+// 
+//     // sceDread(dirfd, &dirbuf);
+//     // sceDread(dirfd, &dirbuf);
+//     kprintf("mostrando...\n");
+//     while (sceDread(dirfd, &dirbuf) > 0)
+//     {
+//         // if (EndsWith(dirbuf.d_name, ".ELF;1"))
+//         // {
+//         //     break;
+//         // }
+//         kprintf("ELF: %s found size %d!\n", dirbuf.d_name, dirbuf.d_stat.st_size);
+//     }
+//     
+//     // u32 elf_size = dirbuf.d_stat.st_size;
+// 
+//     sceDclose(dirfd);
+// 
+//     char format_path[32];
+//     sprintf(format_path, "%s%s", rootDir, fname);
+//     int fd = sceOpen(format_path, SCE_RDONLY);
+// 
+//     kprintf("%s\n", format_path);
+//     
+//     // u32 *elf = mem_alloc(elf_size, 4);
+// 
+//     sceRead(fd, elf, 2000);
+//     kprintf("Elf alocado em: %p %d\n", elf, fd);
+//     
+//     sceClose(fd);
+    
+    sys_GameLoop(a0);
 }
 
 typedef struct MarkerListItem {
@@ -1113,11 +1207,6 @@ void loop()
         //     ListSpriteInstances(flashInterface->flashClient[1]->movieInstance->spriteInstance, NULL);
         //     // showSpriteInstanceObjects();
         // }
-        if (gamepad.L1)
-        {
-            // Global_sm_bShowCoords = 1;
-            readfile();
-        }
         // if (gamepad.L2)
         // {
         //     Global_sm_bShowCoords = 0;
@@ -1155,6 +1244,9 @@ void injectPatches()
     RedirectCall(0x205758, hook_goCreature_SetHitPoints);
     // RedirectCall(0x152380, hook_EditTextRender);
     RedirectJump(0x1D6F6C, 0x1D6FCC);
+
+    // RedirectJump(0x1FCC38, 0x1FCC70);
+    MakeNop(0x1FCC38);
 }
 
 extern void FlushCache(UINT32);
