@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "*.json": "json",
+        "gocreature.h": "c",
+        "gogameobject.h": "c",
+        "global.h": "c",
+        "flashinterface.h": "c",
+        "stdrbtree.h": "c",
+        "stdrbtreenode.h": "c",
+        "renview.h": "c",
+        "sifdev.h": "c",
+        "injector.h": "c",
+        "elf.h": "c",
+        "stdio.h": "c",
+        "stdint.h": "c",
+        "string.h": "c",
+        "erl.h": "c",
+        "type.h": "c"
+    },
+    "C_Cpp.default.includePath": [
+        ""
+    ],
+}

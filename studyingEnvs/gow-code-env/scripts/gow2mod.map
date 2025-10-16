@@ -762,9 +762,9 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (Mem_PoolFreePtr = 0x148080)
                 [!provide]                        PROVIDE (Mem_FreePool = 0x1480a0)
                 [!provide]                        PROVIDE (Mem_FreePtr = 0x148110)
-                0x001481f0                        PROVIDE (Mem_NewPtr = 0x1481f0)
+                [!provide]                        PROVIDE (Mem_NewPtr = 0x1481f0)
                 [!provide]                        PROVIDE (Mem_NewPtrHigh = 0x1483c8)
-                0x00148648                        PROVIDE (Mem_GetCurrentHeapZone = 0x148648)
+                [!provide]                        PROVIDE (Mem_GetCurrentHeapZone = 0x148648)
                 [!provide]                        PROVIDE (Mem_SetCurrentHeapZone = 0x148678)
                 [!provide]                        PROVIDE (Mem_PushCurrentHeapZone = 0x148710)
                 [!provide]                        PROVIDE (Mem_PopCurrentHeapZone = 0x148738)
@@ -944,15 +944,15 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (renFlashMasterContext_FreeClient = 0x156390)
                 [!provide]                        PROVIDE (renFlashServer_renFlashServer = 0x1563c8)
                 [!provide]                        PROVIDE (renFlashServer_CreateMasterContext = 0x156608)
-                0x00156688                        PROVIDE (StreamShape = 0x156688)
-                0x001566c8                        PROVIDE (StreamFont = 0x1566c8)
-                0x00156870                        PROVIDE (StreamText = 0x156870)
+                [!provide]                        PROVIDE (StreamShape = 0x156688)
+                [!provide]                        PROVIDE (StreamFont = 0x1566c8)
+                [!provide]                        PROVIDE (StreamText = 0x156870)
                 [!provide]                        PROVIDE (StreamLayer = 0x1568a8)
                 [!provide]                        PROVIDE (StreamActionScript = 0x1568e8)
                 [!provide]                        PROVIDE (StreamFrameActionLabel = 0x156920)
-                0x001569c8                        PROVIDE (StreamSprite = 0x1569c8)
+                [!provide]                        PROVIDE (StreamSprite = 0x1569c8)
                 [!provide]                        PROVIDE (StreamButtonAction = 0x156ae0)
-                0x00156b18                        PROVIDE (StreamButton = 0x156b18)
+                [!provide]                        PROVIDE (StreamButton = 0x156b18)
                 [!provide]                        PROVIDE (StreamMovie = 0x156c10)
                 [!provide]                        PROVIDE (renFlashServer_BeginFlash = 0x157010)
                 [!provide]                        PROVIDE (renFlashServer_EndFlash = 0x157160)
@@ -1497,7 +1497,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (sys_Boot2 = 0x1858f0)
                 [!provide]                        PROVIDE (sys_Shutdown = 0x185958)
                 [!provide]                        PROVIDE (sys_GameFrame = 0x185990)
-                [!provide]                        PROVIDE (sys_GameLoop = 0x1859c0)
+                0x001859c0                        PROVIDE (sys_GameLoop = 0x1859c0)
                 [!provide]                        PROVIDE (sysCDDVD_DirInfo_DirInfo = 0x185a08)
                 [!provide]                        PROVIDE (sysCDDVD_DirInfo_Open = 0x185a20)
                 [!provide]                        PROVIDE (sysCDDVD_DirInfo_NextEntry = 0x185ac0)
@@ -5388,14 +5388,14 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (strchr = 0x2a13c4)
                 0x002a1564                        PROVIDE (strcmp = 0x2a1564)
                 [!provide]                        PROVIDE (strcpy = 0x2a16b0)
-                [!provide]                        PROVIDE (strlen = 0x2a17c8)
-                [!provide]                        PROVIDE (strncmp = 0x2a1910)
+                0x002a17c8                        PROVIDE (strlen = 0x2a17c8)
+                0x002a1910                        PROVIDE (strncmp = 0x2a1910)
                 [!provide]                        PROVIDE (strncpy = 0x2a1ad8)
                 [!provide]                        PROVIDE (gcc2_compiled__0 = 0x2a1ca0)
                 [!provide]                        PROVIDE (_cleanup_r = 0x2a1cb0)
                 [!provide]                        PROVIDE (_cleanup = 0x2a1cd0)
                 [!provide]                        PROVIDE (_fwalk = 0x2a1d00)
-                [!provide]                        PROVIDE (printf = 0x2a1da8)
+                [!provide]                        PROVIDE (_printf = 0x2a1da8)
                 [!provide]                        PROVIDE (sprintf = 0x2a1e10)
                 [!provide]                        PROVIDE (__sread = 0x2a1e90)
                 [!provide]                        PROVIDE (__swrite = 0x2a1ef8)
@@ -10573,68 +10573,67 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
                 [!provide]                        PROVIDE (CDecalSystem_s_ModifierSeeds = 0x35bfa0)
                 [!provide]                        PROVIDE (CDecalSystem_s_wModifierFrame = 0x35bfa8)
 
-.text           0x000d0000     0x1810
+.text           0x000d0000     0x1460
                 0x000d0000                        _ftext = .
  *(.text)
- .text          0x000d0000     0x1444 ./main.o
+ .text          0x000d0000     0x1098 ./main.o
                 0x000d0000                hook_goCreature_SetHitPoints
-                0x000d004c                PrintHeapStats
-                0x000d0128                StreamMovie
-                0x000d0640                RedirectCall
-                0x000d0654                RedirectJump
-                0x000d0668                WriteDword
-                0x000d0670                MakeNop
-                0x000d0678                print_pointer
-                0x000d069c                updateMenuStyle
-                0x000d0734                showmsg
-                0x000d07d0                showMenu
-                0x000d085c                hook_EditTextRender
-                0x000d0894                setzin
-                0x000d0924                isSpriteInstance
-                0x000d0948                hook_SpriteRenderFrame
-                0x000d0984                ListSpriteInstances
-                0x000d0a8c                findSpriteInstanceByName
-                0x000d0b8c                changeShape
-                0x000d0be4                getObjectAddress
-                0x000d0c84                showSpriteObjects
-                0x000d0df0                showSpriteInstanceObjects
-                0x000d0f84                changeMainMeter
-                0x000d125c                hook_Entity_DoMsg
-                0x000d12a8                readfile
-                0x000d131c                loop
-                0x000d139c                injectPatches
-                0x000d1420                INVOKER
- *fill*         0x000d1444        0x4 
- .text          0x000d1448       0x40 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
-                0x000d1448                __extendsfdf2
- .text          0x000d1488       0x38 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
-                0x000d1488                __make_dp
- .text          0x000d14c0       0xe8 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
-                0x000d14c0                __unpack_f
- .text          0x000d15a8      0x1d8 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
-                0x000d15a8                __pack_d
+                0x000d004c                loop
+                0x000d00a0                PrintHeapStats
+                0x000d017c                RedirectCall
+                0x000d0190                RedirectJump
+                0x000d01a4                WriteDword
+                0x000d01ac                MakeNop
+                0x000d01b4                print_pointer
+                0x000d01d8                updateMenuStyle
+                0x000d0270                showmsg
+                0x000d030c                showMenu
+                0x000d0398                hook_EditTextRender
+                0x000d03d0                setzin
+                0x000d0460                isSpriteInstance
+                0x000d0484                hook_SpriteRenderFrame
+                0x000d04c0                ListSpriteInstances
+                0x000d05c8                findSpriteInstanceByName
+                0x000d06c8                changeShape
+                0x000d0720                getObjectAddress
+                0x000d07c0                showSpriteObjects
+                0x000d092c                showSpriteInstanceObjects
+                0x000d0ac0                changeMainMeter
+                0x000d0d98                hook_Entity_DoMsg
+                0x000d0de4                EndsWith
+                0x000d0e74                loadELF
+                0x000d0fec                injectPatches
+                0x000d1074                INVOKER
+ .text          0x000d1098       0x40 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+                0x000d1098                __extendsfdf2
+ .text          0x000d10d8       0x38 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+                0x000d10d8                __make_dp
+ .text          0x000d1110       0xe8 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+                0x000d1110                __unpack_f
+ .text          0x000d11f8      0x1d8 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+                0x000d11f8                __pack_d
  *(.text.*)
  *(.gnu.linkonce.t*)
  *(.rodata)
  *(.data)
- .data          0x000d1780       0x88 ./main.o
-                0x000d1780                tempbuff
-                0x000d17b8                objTypes
-                0x000d17d8                msgid
-                0x000d17dc                enableTestMenu
-                0x000d17e0                lastSelectedOption
-                0x000d17e2                selectedOption
-                0x000d17e8                msgtest
-                0x000d17fc                test
-                0x000d1800                rep
-                0x000d1804                old_state
- .data          0x000d1808        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
- .data          0x000d1808        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
- .data          0x000d1808        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
- .data          0x000d1808        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+ .data          0x000d13d0       0x88 ./main.o
+                0x000d13d0                tempbuff
+                0x000d1408                objTypes
+                0x000d1428                msgid
+                0x000d142c                enableTestMenu
+                0x000d1430                lastSelectedOption
+                0x000d1432                selectedOption
+                0x000d1438                msgtest
+                0x000d144c                test
+                0x000d1450                rep
+                0x000d1454                old_state
+ .data          0x000d1458        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .data          0x000d1458        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .data          0x000d1458        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .data          0x000d1458        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
  *(.init)
  *(.fini)
-                0x000d1808        0x8 QUAD 0x0
+                0x000d1458        0x8 QUAD 0x0
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
 
@@ -10643,18 +10642,18 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
  *(.reginfo)
  *(.gnu.attributes)
 
-.rodata         0x000d1880      0x3b8
+.rodata         0x000d1480      0x400
  *(.rodata)
  *(.rodata.*)
  .rodata.str1.8
-                0x000d1880      0x389 ./main.o
-                                0x381 (size before relaxing)
- *fill*         0x000d1c09        0x3 
- .rodata.cst4   0x000d1c0c       0x2c ./main.o
+                0x000d1480      0x3d1 ./main.o
+                                0x3c9 (size before relaxing)
+ *fill*         0x000d1851        0x3 
+ .rodata.cst4   0x000d1854       0x2c ./main.o
  *(.gnu.linkonce.r*)
 
-.data           0x000d1c80        0x0
-                0x000d1c80                        _fdata = .
+.data           0x000d1880        0x0
+                0x000d1880                        _fdata = .
  *(.data)
  *(.data.*)
  *(.gnu.linkonce.d*)
@@ -10664,7 +10663,7 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
 
 .gcc_except_table
  *(.gcc_except_table)
-                0x000d9c70                        _gp = (ALIGN (0x80) + 0x7ff0)
+                0x000d9870                        _gp = (ALIGN (0x80) + 0x7ff0)
 
 .lit4
  *(.lit4)
@@ -10676,34 +10675,35 @@ LOAD C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf
  *(.sdata)
  *(.sdata.*)
  *(.gnu.linkonce.s*)
-                0x000d1c80                        _edata = .
+                0x000d1880                        _edata = .
                 [!provide]                        PROVIDE (edata = .)
 
-.sbss           0x000d1c80        0x0
-                0x000d1c80                        _fbss = .
+.sbss           0x000d1880        0x0
+                0x000d1880                        _fbss = .
  *(.sbss)
  *(.sbss.*)
  *(.gnu.linkonce.sb*)
  *(.scommon)
 
-.bss            0x000d1c80       0x5c
+.bss            0x000d1880       0x6c
  *(.bss)
- .bss           0x000d1c80       0x5c ./main.o
-                0x000d1c80                b
-                0x000d1c82                a
-                0x000d1c88                gamepad
-                0x000d1c90                adrmsg
-                0x000d1cb8                stdText
-                0x000d1cd8                time
- .bss           0x000d1cdc        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
- .bss           0x000d1cdc        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
- .bss           0x000d1cdc        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
- .bss           0x000d1cdc        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
+ .bss           0x000d1880       0x6c ./main.o
+                0x000d1880                testbuf
+                0x000d1894                b
+                0x000d1896                a
+                0x000d1898                gamepad
+                0x000d18a0                adrmsg
+                0x000d18c8                stdText
+                0x000d18e8                time
+ .bss           0x000d18ec        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_sf_to_df.o)
+ .bss           0x000d18ec        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_make_df.o)
+ .bss           0x000d18ec        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_unpack_sf.o)
+ .bss           0x000d18ec        0x0 C:/Users/allan/Desktop/tools/ps2sdk/ee/bin/../lib/gcc/mips64r5900el-ps2-elf/14.2.0\libgcc.a(_pack_df.o)
  *(.bss.*)
  *(.gnu.linkonce.b*)
  *(COMMON)
-                0x000d1cdc                        _end_bss = .
-                0x000d1cdc                        _end = .
+                0x000d18ec                        _end_bss = .
+                0x000d18ec                        _end = .
                 [!provide]                        PROVIDE (end = .)
                 [!provide]                        PROVIDE (_heap_size = 0xffffffffffffffff)
                 [!provide]                        PROVIDE (_stack = 0xffffffffffffffff)
