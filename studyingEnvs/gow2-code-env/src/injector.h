@@ -1,12 +1,14 @@
 #ifndef INJECTOR_H
 #define INJECTOR_H
 
+#include "type.h"
+
 void RedirectCall(unsigned int call_addr, void* addr);
 
-void WriteDword(unsigned int address, unsigned int value);
+void WriteDword(UINT32 address, UINT32 value);
 
-void MakeNop(unsigned int address);
+void MakeNop(UINT32 address);
 
-void print_pointer(char *name, void *ptr);
+void RedirectJump(unsigned int jump_addr, UINT32 addr);
 
 #endif
