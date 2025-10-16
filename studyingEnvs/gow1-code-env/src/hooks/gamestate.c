@@ -2,10 +2,10 @@
 #include "flashinterface.h"
 #include "gamestate.h"
 #include "include/goplayer.h"
-#include "injector.h"
-#include "enemymeter.h"
+#include "../injector.h"
+#include "../enemymeter.h"
 #include "include/gamestate.h"
-#include "menu.h"
+#include "../menu.h"
 
 Gpad ReadPad(int);
 uint *tMoveSystem_GetTargetCreature(uint *this);

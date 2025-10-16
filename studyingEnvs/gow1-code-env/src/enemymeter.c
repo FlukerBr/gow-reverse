@@ -8,7 +8,7 @@ uint *tMoveSystem_GetTargetCreature(uint *this);
 uint tMoveSystem_GetTargetID(uint *this);
 int sprintf(char *str, const char *format, ...);
 F_SpriteInstance *GetSubSI(char const *, F_SpriteInstance *);
-int _printf(const char *, ...);
+int printf(const char *, ...);
 void* memset(void *ptr, int value, uint size);
 
 char enemyMeterString[15] = {0};
@@ -46,7 +46,7 @@ void enableEnemyMeter(BOOL enable)
         {
             // SI->xPos = 270.0f;
             SI->yPos = -80.0f;
-            _printf("%p\n", &SI->yPos);
+            printf("%p\n", &SI->yPos);
         }
     }
 }
